@@ -1,1 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perguntas Frequentes | IronBody</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+
+    <style>
+        .faq-section {
+            padding: 120px 0 80px;
+        }
+
+        .faq-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Estilo do Acordeão Semântico */
+        details {
+            background-color: var(--bg-card);
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+        }
+
+        details[open] {
+            border-color: var(--primary-color);
+        }
+
+        summary {
+            padding: 20px;
+            cursor: pointer;
+            font-weight: 700;
+            font-family: var(--font-primary);
+            position: relative;
+            list-style: none; /* Remove triângulo padrão */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        /* Ícone customizado (+) */
+        summary::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            transition: transform 0.3s;
+        }
+
+        details[open] summary::after {
+            transform: rotate(45deg); /* Vira um X */
+        }
+
+        details p {
+            padding: 0 20px 20px;
+            color: #ccc;
+            line-height: 1.6;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 10px;
+            padding-top: 20px;
+        }
+
+        /* CTA Final */
+        .faq-cta {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            background-color: #1a1a1a;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">Iron<span>Body</span></a>
+            <div class="menu-toggle" id="mobile-menu">&#9776;</div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="sobre.html" class="nav-link">Sobre</a></li>
+                    <li><a href="planos.html" class="nav-link">Planos</a></li>
+                    <li><a href="faq.html" class="nav-link active">FAQ</a></li>
+                    <li><a href="login.html" class="nav-link nav-link-login">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="faq-section container">
+        <div class="faq-header">
+            <h1>Dúvidas Frequentes</h1>
+            <p>Tudo o que você precisa saber antes de começar sua transformação.</p>
+        </div>
+
+        <div class="faq-container">
+            
+            <details>
+                <summary>Como funciona a consultoria online?</summary>
+                <p>Após a confirmação do pagamento, você receberá acesso a um questionário (anamnese) para entendermos seu perfil, histórico e objetivos. Com base nisso, eu monto seu treino personalizado e disponibilizo via App/PDF em até 3 dias úteis.</p>
+            </details>
+
+            <details>
+                <summary>Preciso de equipamentos de academia?</summary>
+                <p>Não necessariamente! Se você treina em casa, posso montar um treino adaptado usando o peso do corpo ou acessórios simples (elásticos, garrafas). Se treina em academia, uso o maquinário disponível lá.</p>
+            </details>
+
+            <details>
+                <summary>E se eu tiver dúvidas durante o treino?</summary>
+                <p>Os planos Trimestral e Semestral possuem suporte via WhatsApp. Você pode enviar vídeos da sua execução para eu corrigir e tirar dúvidas a qualquer momento. No plano Mensal, o suporte é via e-mail com resposta em até 24h.</p>
+            </details>
+
+            <details>
+                <summary>Como funciona a renovação?</summary>
+                <p>Não há renovação automática nem fidelidade obrigatória (exceto parcelamentos no cartão). Você escolhe se quer continuar ao final do período contratado. Meu objetivo é que você renove pelos resultados!</p>
+            </details>
+
+            <details>
+                <summary>O plano inclui dieta?</summary>
+                <p>Como Personal Trainer, forneço um <strong>Guia Nutricional</strong> com sugestões de macronutrientes e hábitos saudáveis. Para uma dieta prescrita grama a grama, recomendo o acompanhamento com um nutricionista, mas o guia já ajuda a potencializar 80% dos resultados.</p>
+            </details>
+
+        </div>
+
+        <div class="faq-cta">
+            <h3>Ainda tem dúvidas?</h3>
+            <p style="margin-bottom: 20px;">Fale diretamente comigo no WhatsApp.</p>
+            <a href="contato.html" class="btn btn-secondary">Entrar em Contato</a>
+        </div>
+    </section>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
