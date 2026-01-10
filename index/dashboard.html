@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Gustavo Consignani</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+
+    <style>
+        body { background-color: #0a0a0a; min-height: 100vh; display: flex; flex-direction: column; }
+        
+        /* Navbar específica do Dashboard */
+        .dash-header {
+            background-color: #1a1a1a;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .user-welcome { font-size: 0.9rem; color: #ccc; }
+        .user-welcome span { color: var(--primary-color); font-weight: 700; }
+
+        /* Grid de Cartões */
+        .dash-container { padding: 40px 20px; max-width: 1000px; margin: 0 auto; flex: 1; }
+        
+        .dash-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .dash-card {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .dash-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .card-icon { font-size: 2rem; margin-bottom: 15px; color: var(--primary-color); }
+        .card-title { font-size: 1.2rem; margin-bottom: 10px; font-family: var(--font-primary); }
+        .card-desc { font-size: 0.9rem; color: #999; margin-bottom: 20px; }
+
+        /* Loading */
+        #loading-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 999;
+            display: flex; justify-content: center; align-items: center;
+            color: var(--primary-color); font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loading-screen">Carregando sua área...</div>
+
+    <header class="dash-header">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <a href="#" class="logo" style="font-size: 1.2rem;">Gustavo<span>Consignani</span></a>
+            
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div class="user-welcome">Olá, <span id="user-name">Aluno</span></div>
+                <button id="logout-btn" class="btn btn-secondary" style="padding: 5px 15px; font-size: 0.8rem;">Sair</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="dash-container">
+        <h1>Painel do Aluno</h1>
+        <p style="color: #888;">Gerencie seus treinos e evolução.</p>
+
+        <div class="dash-grid">
+            
+            <div class="dash-card">
+                <div>
+                    <div class="card-icon">💪</div>
+                    <h3 class="card-title">Meu Treino</h3>
+                    <p class="card-desc">Acesse sua planilha de treinos e vídeos de execução.</p>
+                </div>
+                <button onclick="alert('Seu treino está sendo montado! Eu te avisarei no WhatsApp.')" class="btn btn-primary" style="width: 100%;">Abrir Treino</button>
+            </div>
+
+            <div class="dash-card">
+                <div>
+                    <div class="card-icon">📋</div>
+                    <h3 class="card-title">Minha Ficha</h3>
+                    <p class="card-desc">Visualize ou atualize seus dados de saúde e objetivos.</p>
+                </div>
+                <a href="anamnese.html" class="btn btn-secondary" style="width: 100%; text-align: center;">Ver Anamnese</a>
+            </div>
+
+            <div class="dash-card">
+                <div>
+                    <div class="card-icon">💬</div>
+                    <h3 class="card-title">Falar com Gustavo</h3>
+                    <p class="card-desc">Tem dúvida na execução? Me mande um vídeo agora.</p>
+                </div>
+                <a href="https://wa.me/55SEUNUMEROAQUI" target="_blank" class="btn btn-secondary" style="width: 100%; text-align: center;">Chamar no WhatsApp</a>
+            </div>
+
+        </div>
+    </section>
+
+    <script type="module" src="assets/js/dashboard.js"></script>
+</body>
+</html>
