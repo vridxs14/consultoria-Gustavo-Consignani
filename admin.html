@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin | Gustavo Consignani</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+
+    <style>
+        .admin-section { padding: 40px 20px; max-width: 1200px; margin: 0 auto; }
+        
+        .admin-header { 
+            display: flex; justify-content: space-between; align-items: center; 
+            margin-bottom: 30px; background: #1a1a1a; padding: 20px; border-radius: 10px; border: 1px solid #333;
+        }
+
+        /* Estilo da Tabela */
+        .table-container { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; min-width: 800px; }
+        
+        th { text-align: left; padding: 15px; background: #000; color: var(--primary-color); border-bottom: 2px solid #333; }
+        td { padding: 15px; border-bottom: 1px solid #222; vertical-align: middle; color: #ccc; }
+        tr:hover { background-color: #111; }
+
+        /* Inputs dentro da tabela */
+        .link-input { 
+            background: #000; border: 1px solid #444; color: white; padding: 8px; 
+            border-radius: 4px; width: 100%; max-width: 300px; 
+        }
+        .btn-save { 
+            background: var(--primary-color); color: black; border: none; padding: 8px 15px; 
+            border-radius: 4px; font-weight: bold; cursor: pointer; 
+        }
+        .btn-save:hover { background: white; }
+
+        .status-badge { padding: 5px 10px; border-radius: 15px; font-size: 0.8rem; font-weight: bold; }
+        .status-ok { background: rgba(0, 255, 0, 0.1); color: #00ff00; }
+        .status-pending { background: rgba(255, 165, 0, 0.1); color: orange; }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">Gustavo<span>Admin</span></a>
+            <button id="logout-btn" class="btn btn-secondary" style="padding: 5px 15px;">Sair</button>
+        </div>
+    </header>
+
+    <section class="admin-section">
+        <div class="admin-header">
+            <h2>Gerenciamento de Alunos</h2>
+            <div style="font-size: 0.9rem; color: #888;">Logado como: <span id="admin-email" style="color:white;">...</span></div>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Objetivo</th>
+                        <th>WhatsApp</th>
+                        <th>Link do Treino</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody id="students-list">
+                    <tr><td colspan="5" style="text-align:center;">Carregando alunos...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <script type="module" src="assets/js/admin.js"></script>
+</body>
+</html>
