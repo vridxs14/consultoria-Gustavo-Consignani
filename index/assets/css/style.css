@@ -85,7 +85,7 @@ img {
     
     /* Imagem de fundo com overlay */
     background: linear-gradient(var(--overlay-color), var(--overlay-color)),
-                url('../img/hero-bg.jpg') no-repeat center center/cover;
+                url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop') no-repeat center center/cover;
     /* Nota: Certifique-se de ter uma imagem 'hero-bg.jpg' na pasta img ou altere a URL */
 }
 
