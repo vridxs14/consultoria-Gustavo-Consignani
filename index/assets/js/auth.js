@@ -132,7 +132,7 @@ onAuthStateChanged(auth, (user) => {
         
         // Se estivermos na página de login, redirecionar para a área restrita
         if (window.location.pathname.includes('login')) {
-            window.location.href = 'anamnese.html';
+            window.location.href = 'dashboard.html';
         }
     } else {
         // Usuário não está logado
