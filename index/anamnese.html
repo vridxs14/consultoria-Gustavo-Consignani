@@ -1,1 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área do Aluno | Anamnese</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+
+    <style>
+        .restricted-header {
+            background-color: #1a1a1a;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-email {
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .anamnese-section {
+            padding: 60px 0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-card {
+            background-color: var(--bg-card);
+            padding: 40px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .form-section-title {
+            color: var(--primary-color);
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+            margin: 30px 0 20px;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .form-section-title:first-child {
+            margin-top: 0;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-dark);
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid #333;
+            cursor: pointer;
+        }
+        
+        .checkbox-item input {
+            accent-color: var(--primary-color);
+        }
+
+        /* Loading Overlay */
+        #loading-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            flex-direction: column;
+            display: none; /* Oculto por padrão */
+        }
+        
+        .spinner {
+            width: 50px; height: 50px;
+            border: 5px solid #333;
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+        <p>Salvando seus dados...</p>
+    </div>
+
+    <header class="restricted-header">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <a href="#" class="logo" style="font-size: 1.2rem;">Iron<span>Body</span> App</a>
+            
+            <div class="user-info">
+                <span id="user-display" class="user-email">Carregando...</span>
+                <button id="logout-btn" class="btn btn-secondary" style="padding: 5px 15px; font-size: 0.8rem;">Sair</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="anamnese-section container">
+        <div class="form-card">
+            <h1 style="margin-bottom: 10px;">Ficha de Anamnese</h1>
+            <p style="color: #ccc; margin-bottom: 30px;">Preencha com sinceridade para eu montar o melhor treino para você.</p>
+
+            <form id="anamnese-form">
+                
+                <div class="form-section-title">1. Dados Pessoais</div>
+                
+                <div class="form-group">
+                    <label>Nome Completo</label>
+                    <input type="text" id="nome" class="form-control" required>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="form-group">
+                        <label>Idade</label>
+                        <input type="number" id="idade" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Peso (kg)</label>
+                        <input type="number" id="peso" step="0.1" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="form-section-title">2. Objetivos e Rotina</div>
+                
+                <div class="form-group">
+                    <label>Qual seu objetivo principal?</label>
+                    <select id="objetivo" class="form-control">
+                        <option value="emagrecimento">Emagrecimento</option>
+                        <option value="hipertrofia">Ganho de Massa Muscular</option>
+                        <option value="resistencia">Condicionamento/Resistência</option>
+                        <option value="saude">Saúde e Qualidade de Vida</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Quantos dias por semana você pode treinar?</label>
+                    <select id="frequencia" class="form-control">
+                        <option value="2">2 dias</option>
+                        <option value="3">3 dias</option>
+                        <option value="4">4 dias</option>
+                        <option value="5">5 dias</option>
+                        <option value="6">6 dias</option>
+                    </select>
+                </div>
+
+                <div class="form-section-title">3. Histórico de Saúde</div>
+
+                <div class="form-group">
+                    <label>Possui alguma lesão ou restrição médica?</label>
+                    <textarea id="lesoes" class="form-control" placeholder="Ex: Dor no joelho direito ao agachar, hérnia de disco..." style="min-height: 80px;"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Faz uso de algum medicamento contínuo?</label>
+                    <input type="text" id="medicamentos" class="form-control" placeholder="Se sim, quais?">
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px; padding: 15px;">Enviar Ficha para o Treinador</button>
+
+            </form>
+        </div>
+    </section>
+
+    <script type="module" src="assets/js/anamnese.js"></script>
+</body>
+</html>
