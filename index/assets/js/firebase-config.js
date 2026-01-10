@@ -8,12 +8,13 @@ import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase
 // Vá em: Firebase Console > Configurações do Projeto > Geral > Seus aplicativos
 // ===============================================================
 const firebaseConfig = {
-    apiKey: "SUA_API_KEY_AQUI",
-    authDomain: "seu-projeto.firebaseapp.com",
-    projectId: "seu-projeto-id",
-    storageBucket: "seu-projeto.appspot.com",
-    messagingSenderId: "123456789",
-    appId: "1:123456789:web:abcdef123456"
+  apiKey: "AIzaSyBhn78MS1oil5bQqrT9zu16ZuiEssWkpTw",
+  authDomain: "site-gustavo-consignani.firebaseapp.com",
+  projectId: "site-gustavo-consignani",
+  storageBucket: "site-gustavo-consignani.firebasestorage.app",
+  messagingSenderId: "398708841488",
+  appId: "1:398708841488:web:d98bdaf980c541b976be95",
+  measurementId: "G-FPRMGV4209"
 };
 
 // Inicializa o Firebase
