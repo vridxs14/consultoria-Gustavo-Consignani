@@ -3,35 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planos | IronBody</title>
-
+    <title>Planos | Gustavo Consignani</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/components.css">
 
     <style>
-        .pricing-section {
-            padding: 120px 0 80px;
-            text-align: center;
-        }
-
-        .pricing-header {
-            max-width: 600px;
-            margin: 0 auto 60px;
-        }
-
-        /* Grid de Planos */
-        .pricing-grid {
-            display: flex;
-            justify-content: center;
-            align-items: center; /* Alinha verticalmente para o destaque funcionar */
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-
+        .pricing-section { padding: 120px 0 80px; text-align: center; }
+        .pricing-header { max-width: 600px; margin: 0 auto 60px; }
+        .pricing-grid { display: flex; justify-content: center; align-items: center; gap: 30px; flex-wrap: wrap; }
+        
         .plan-card {
             background-color: var(--bg-card);
             border: 1px solid rgba(255,255,255,0.1);
@@ -42,9 +26,8 @@
             transition: transform 0.3s;
         }
 
-        /* Plano Destaque (Trimestral) */
         .plan-card.featured {
-            transform: scale(1.1); /* Efeito de Ancoragem: Maior que os outros */
+            transform: scale(1.1);
             border: 2px solid var(--primary-color);
             background-color: #1a1a1a;
             z-index: 2;
@@ -59,68 +42,19 @@
             font-size: 0.8rem;
             font-weight: 700;
             position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
+            top: -15px; left: 50%; transform: translateX(-50%);
             text-transform: uppercase;
         }
 
-        .plan-name {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            color: var(--text-white);
-        }
+        .plan-price { font-size: 2.5rem; font-weight: 800; color: var(--primary-color); margin: 15px 0 5px; }
+        .plan-period { font-size: 0.9rem; color: var(--text-gray); display: block; margin-bottom: 20px;}
+        .plan-features { text-align: left; margin: 30px 0; padding: 0; }
+        .plan-features li { margin-bottom: 15px; display: flex; align-items: center; color: #ddd; }
+        .plan-features li::before { content: '✓'; color: var(--primary-color); font-weight: bold; margin-right: 10px; }
 
-        .plan-price {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
-
-        .plan-period {
-            font-size: 0.9rem;
-            color: var(--text-gray);
-        }
-
-        .plan-features {
-            text-align: left;
-            margin: 30px 0;
-            padding: 0;
-        }
-
-        .plan-features li {
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            color: #ddd;
-        }
-
-        .plan-features li::before {
-            content: '✓';
-            color: var(--primary-color);
-            font-weight: bold;
-            margin-right: 10px;
-        }
-
-        /* Responsividade */
         @media (max-width: 992px) {
-            .pricing-grid {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .plan-card.featured {
-                transform: scale(1); /* Remove o zoom no mobile para não quebrar layout */
-                order: -1; /* Joga o destaque para o topo no mobile */
-                width: 100%;
-                max-width: 350px;
-            }
-
-            .plan-card {
-                width: 100%;
-                max-width: 350px;
-            }
+            .pricing-grid { flex-direction: column; align-items: center; }
+            .plan-card.featured { transform: scale(1); order: -1; width: 100%; }
         }
     </style>
 </head>
@@ -128,15 +62,15 @@
 
     <header class="header">
         <div class="container">
-            <a href="index.html" class="logo">Iron<span>Body</span></a>
+            <a href="index.html" class="logo">Gustavo<span>Consignani</span></a>
             <div class="menu-toggle" id="mobile-menu">&#9776;</div>
             <nav>
                 <ul class="nav-menu">
                     <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="sobre.html" class="nav-link">Sobre</a></li>
+                    <li><a href="sobre.html" class="nav-link">Sobre Mim</a></li>
                     <li><a href="planos.html" class="nav-link active">Planos</a></li>
-                    <li><a href="faq.html" class="nav-link">FAQ</a></li>
-                    <li><a href="login.html" class="nav-link nav-link-login">Login</a></li>
+                    <li><a href="faq.html" class="nav-link">Dúvidas</a></li>
+                    <li><a href="login.html" class="nav-link nav-link-login">Área do Aluno</a></li>
                 </ul>
             </nav>
         </div>
@@ -144,48 +78,48 @@
 
     <section class="pricing-section container">
         <div class="pricing-header">
-            <h1>Escolha seu Plano</h1>
-            <p>Invista em você com um valor acessível e entrega de resultados.</p>
+            <h1>Invista em Você</h1>
+            <p>Planos acessíveis para você ter um especialista no seu bolso.</p>
         </div>
 
         <div class="pricing-grid">
             
             <div class="plan-card">
                 <h3 class="plan-name">Mensal</h3>
-                <div class="plan-price">R$ 150</div>
-                <span class="plan-period">/mês</span>
+                <div class="plan-price">R$ 129,97</div>
+                <span class="plan-period">cobrado mensalmente</span>
                 <ul class="plan-features">
                     <li>Treino Personalizado</li>
                     <li>Acesso ao App</li>
-                    <li>Suporte via Email</li>
-                    <li>Ajuste mensal</li>
+                    <li>Suporte Diário</li>
+                    <li>Ideal para testar</li>
                 </ul>
-                <a href="#" class="btn btn-secondary" style="width: 100%; text-align: center;">Escolher Mensal</a>
+                <a href="#" class="btn btn-secondary" style="width: 100%; text-align: center;">Começar Mensal</a>
             </div>
 
             <div class="plan-card featured">
-                <div class="popular-badge">Mais Popular</div>
+                <div class="popular-badge">Mais Escolhido</div>
                 <h3 class="plan-name">Trimestral</h3>
-                <div class="plan-price">R$ 130</div>
-                <span class="plan-period">/mês (Total R$ 390)</span>
+                <div class="plan-price">R$ 99,90</div>
+                <span class="plan-period">/mês (Total R$ 299,70)</span>
                 <ul class="plan-features">
-                    <li>Tudo do plano Mensal</li>
-                    <li><strong>Suporte WhatsApp 24h</strong></li>
+                    <li><strong>Economia Real</strong></li>
+                    <li>Planejamento de 3 meses</li>
                     <li>Análise de Execução (Vídeo)</li>
-                    <li>Guia Nutricional Básico</li>
+                    <li>Suporte WhatsApp Prioritário</li>
                 </ul>
-                <a href="#" class="btn btn-primary" style="width: 100%; text-align: center;">Escolher Trimestral</a>
+                <a href="#" class="btn btn-primary" style="width: 100%; text-align: center;">Garantir Trimestral</a>
             </div>
 
             <div class="plan-card">
                 <h3 class="plan-name">Semestral</h3>
-                <div class="plan-price">R$ 110</div>
-                <span class="plan-period">/mês (Total R$ 660)</span>
+                <div class="plan-price">R$ 89,90</div>
+                <span class="plan-period">/mês (Total R$ 539,40)</span>
                 <ul class="plan-features">
-                    <li>Tudo do plano Trimestral</li>
-                    <li>Videoconferência mensal</li>
+                    <li>Melhor Custo-Benefício</li>
+                    <li>Foco em Longo Prazo</li>
+                    <li>Ajustes Ilimitados</li>
                     <li>Grupo Vip de Alunos</li>
-                    <li>Prioridade na agenda</li>
                 </ul>
                 <a href="#" class="btn btn-secondary" style="width: 100%; text-align: center;">Escolher Semestral</a>
             </div>
