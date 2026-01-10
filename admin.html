@@ -10,35 +10,86 @@
     <link rel="stylesheet" href="assets/css/components.css">
 
     <style>
-        .admin-section { padding: 40px 20px; max-width: 1200px; margin: 0 auto; }
+        .admin-section { padding: 80px 20px 40px; max-width: 1200px; margin: 0 auto; }
         
+        /* HEADER DO ADMIN */
         .admin-header { 
-            display: flex; justify-content: space-between; align-items: center; 
+            display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; align-items: center; 
             margin-bottom: 30px; background: #1a1a1a; padding: 20px; border-radius: 10px; border: 1px solid #333;
         }
+        .admin-title h2 { margin: 0; font-size: 1.5rem; color: white; }
+        .admin-title span { font-size: 0.8rem; color: #888; }
 
-        /* Estilo da Tabela */
-        .table-container { overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; min-width: 800px; }
+        /* BARRA DE CONTROLE (Busca) */
+        .controls-bar {
+            display: flex; gap: 10px; margin-bottom: 30px;
+        }
+        .search-input {
+            flex: 1; padding: 12px; border-radius: 8px; border: 1px solid #333; 
+            background: #0a0a0a; color: white; font-size: 1rem;
+        }
+
+        /* GRID RESPONSIVO (O Segredo do Mobile) */
+        .students-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Cria colunas automáticas */
+            gap: 20px;
+        }
+
+        /* CARD DO ALUNO */
+        .student-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex; flex-direction: column; gap: 15px;
+            transition: transform 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+        .student-card:hover { border-color: var(--primary-color); transform: translateY(-2px); }
+
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; }
+        .student-name { font-weight: 800; font-size: 1.1rem; color: white; margin-bottom: 2px; }
+        .student-email { font-size: 0.8rem; color: #888; word-break: break-all; }
         
-        th { text-align: left; padding: 15px; background: #000; color: var(--primary-color); border-bottom: 2px solid #333; }
-        td { padding: 15px; border-bottom: 1px solid #222; vertical-align: middle; color: #ccc; }
-        tr:hover { background-color: #111; }
+        .status-badge { 
+            padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; 
+            white-space: nowrap;
+        }
+        .status-ok { background: rgba(0, 255, 0, 0.1); color: #00ff00; border: 1px solid #00ff00; }
+        .status-pending { background: rgba(255, 165, 0, 0.1); color: orange; border: 1px solid orange; }
 
-        /* Inputs dentro da tabela */
+        .card-body { 
+            background: rgba(0,0,0,0.3); padding: 10px; border-radius: 6px; font-size: 0.85rem; color: #ccc; 
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+        }
+        .info-label { display: block; font-size: 0.7rem; color: #666; text-transform: uppercase; }
+
+        .card-actions { margin-top: auto; display: flex; flex-direction: column; gap: 10px; }
+        
         .link-input { 
-            background: #000; border: 1px solid #444; color: white; padding: 8px; 
-            border-radius: 4px; width: 100%; max-width: 300px; 
+            background: #000; border: 1px solid #444; color: white; padding: 10px; 
+            border-radius: 6px; width: 100%; font-size: 0.9rem;
+        }
+        .link-input:focus { border-color: var(--primary-color); outline: none; }
+
+        .btn-group { display: grid; grid-template-columns: 1fr 2fr; gap: 10px; }
+        .btn-whatsapp { 
+            background: #25D366; color: white; border: none; border-radius: 6px; 
+            display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer; text-decoration: none;
         }
         .btn-save { 
-            background: var(--primary-color); color: black; border: none; padding: 8px 15px; 
-            border-radius: 4px; font-weight: bold; cursor: pointer; 
+            background: var(--primary-color); color: black; border: none; padding: 12px; 
+            border-radius: 6px; font-weight: 800; cursor: pointer; text-align: center;
         }
-        .btn-save:hover { background: white; }
 
-        .status-badge { padding: 5px 10px; border-radius: 15px; font-size: 0.8rem; font-weight: bold; }
-        .status-ok { background: rgba(0, 255, 0, 0.1); color: #00ff00; }
-        .status-pending { background: rgba(255, 165, 0, 0.1); color: orange; }
+        /* Mobile Fixes */
+        @media (max-width: 600px) {
+            .admin-header { flex-direction: column; text-align: center; }
+            .students-grid { grid-template-columns: 1fr; } /* 1 coluna no celular */
+            .btn-group { grid-template-columns: 1fr 3fr; }
+        }
     </style>
 </head>
 <body>
@@ -46,31 +97,30 @@
     <header class="header">
         <div class="container">
             <a href="index.html" class="logo">Gustavo<span>Admin</span></a>
-            <button id="logout-btn" class="btn btn-secondary" style="padding: 5px 15px;">Sair</button>
+            <button id="logout-btn" class="btn btn-secondary" style="padding: 5px 15px; font-size: 0.8rem;">Sair</button>
         </div>
     </header>
 
     <section class="admin-section">
         <div class="admin-header">
-            <h2>Gerenciamento de Alunos</h2>
-            <div style="font-size: 0.9rem; color: #888;">Logado como: <span id="admin-email" style="color:white;">...</span></div>
+            <div class="admin-title">
+                <h2>Meus Alunos</h2>
+                <span id="admin-email">Carregando...</span>
+            </div>
+            <div style="text-align: right;">
+                <div style="font-size: 2rem; font-weight: 800; color: var(--primary-color);" id="total-count">0</div>
+                <div style="font-size: 0.8rem; color: #888;">Fichas Recebidas</div>
+            </div>
         </div>
 
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Objetivo</th>
-                        <th>WhatsApp</th>
-                        <th>Link do Treino</th>
-                        <th>Ação</th>
-                    </tr>
-                </thead>
-                <tbody id="students-list">
-                    <tr><td colspan="5" style="text-align:center;">Carregando alunos...</td></tr>
-                </tbody>
-            </table>
+        <div class="controls-bar">
+            <input type="text" id="search-box" class="search-input" placeholder="🔍 Buscar aluno por nome ou email...">
+        </div>
+
+        <div id="students-grid" class="students-grid">
+            <div style="text-align:center; grid-column: 1/-1; padding: 40px; color: #666;">
+                Carregando dados...
+            </div>
         </div>
     </section>
 

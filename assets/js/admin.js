@@ -2,129 +2,172 @@ import { auth, db } from './firebase-config.js';
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { collection, getDocs, doc, updateDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-const studentsList = document.getElementById('students-list');
+const studentsGrid = document.getElementById('students-grid');
 const adminEmailSpan = document.getElementById('admin-email');
+const totalCountSpan = document.getElementById('total-count');
+const searchBox = document.getElementById('search-box');
 const logoutBtn = document.getElementById('logout-btn');
 
+let allStudents = []; // Armazena localmente para busca rápida
+
 // ==================================================
-// 1. CONFIGURAÇÃO DE SEGURANÇA (IMPORTANTE!)
+// 1. CONFIGURAÇÃO DE SEGURANÇA
 // ==================================================
-// Substitua pelo seu email REAL de login
 const ADMIN_EMAILS = ["vridxz@gmail.com", "contato@gustavoconsignani.com.br"]; 
 
 onAuthStateChanged(auth, async (user) => {
     if (user) {
-        // Verifica se é o Gustavo
         if (!ADMIN_EMAILS.includes(user.email)) {
-            alert("Acesso Negado. Esta área é restrita.");
+            alert("Acesso Negado.");
             window.location.href = 'index.html';
             return;
         }
-
         adminEmailSpan.textContent = user.email;
         carregarAlunos();
-
     } else {
         window.location.href = 'login.html';
     }
 });
 
-// 2. CARREGAR ALUNOS DO BANCO
+// 2. CARREGAR ALUNOS
 async function carregarAlunos() {
-    studentsList.innerHTML = ''; // Limpa a tabela
+    studentsGrid.innerHTML = '<div style="text-align:center; grid-column: 1/-1; color: #ccc;">Atualizando lista...</div>';
 
     try {
-        // Busca todos os documentos da coleção anamneses
         const q = query(collection(db, "anamneses"), orderBy("dataEnvio", "desc"));
         const querySnapshot = await getDocs(q);
 
-        if (querySnapshot.empty) {
-            studentsList.innerHTML = '<tr><td colspan="5" style="text-align:center;">Nenhum aluno encontrado.</td></tr>';
-            return;
-        }
-
+        allStudents = []; // Limpa lista local
+        
         querySnapshot.forEach((docSnap) => {
-            const aluno = docSnap.data();
-            const docId = docSnap.id; // ID para atualizar depois
-            
-            // Cria a linha da tabela
-            const tr = document.createElement('tr');
-            
-            // Define se tem treino ou não para mudar a cor
-            const temTreino = aluno.linkTreino && aluno.linkTreino.length > 5;
-            const statusClass = temTreino ? 'status-ok' : 'status-pending';
-            const statusText = temTreino ? 'Entregue' : 'Pendente';
-
-            tr.innerHTML = `
-                <td>
-                    <div style="font-weight:bold;">${aluno.nome || 'Sem Nome'}</div>
-                    <div style="font-size:0.8rem; color:#888;">${aluno.email}</div>
-                    <div style="font-size:0.8rem; color:#666;">${new Date(aluno.dataEnvio).toLocaleDateString()}</div>
-                </td>
-                <td>
-                    ${aluno.objetivo || '-'}
-                    <br><span class="status-badge ${statusClass}">${statusText}</span>
-                </td>
-                <td>
-                    <a href="https://wa.me/55${limparTelefone(aluno.telefone)}?text=Olá ${aluno.nome}, tudo bem?" target="_blank" style="color:var(--primary-color);">
-                        Abrir Whats
-                    </a>
-                </td>
-                <td>
-                    <input type="text" class="link-input" id="input-${docId}" 
-                           value="${aluno.linkTreino || ''}" 
-                           placeholder="Cole o link do treino aqui...">
-                </td>
-                <td>
-                    <button class="btn-save" onclick="salvarTreino('${docId}')">Salvar</button>
-                </td>
-            `;
-
-            studentsList.appendChild(tr);
+            allStudents.push({ id: docSnap.id, ...docSnap.data() });
         });
 
+        totalCountSpan.textContent = allStudents.length;
+        renderizarAlunos(allStudents); // Mostra na tela
+
     } catch (error) {
-        console.error("Erro ao listar:", error);
-        studentsList.innerHTML = `<tr><td colspan="5">Erro: ${error.message}</td></tr>`;
+        console.error("Erro:", error);
+        studentsGrid.innerHTML = `<div style="text-align:center; color:red;">Erro: ${error.message}</div>`;
     }
 }
 
-// 3. FUNÇÃO DE SALVAR (Disponível globalmente)
+// 3. RENDERIZAR CARDS (O HTML do Card fica aqui)
+function renderizarAlunos(lista) {
+    studentsGrid.innerHTML = '';
+
+    if (lista.length === 0) {
+        studentsGrid.innerHTML = '<div style="text-align:center; grid-column: 1/-1; color: #666; padding: 40px;">Nenhum aluno encontrado.</div>';
+        return;
+    }
+
+    lista.forEach(aluno => {
+        // Lógica de Status
+        const temTreino = aluno.linkTreino && aluno.linkTreino.length > 5;
+        const statusClass = temTreino ? 'status-ok' : 'status-pending';
+        const statusText = temTreino ? 'TREINO OK' : 'PENDENTE';
+        
+        // Formatar Data
+        const dataFormatada = aluno.dataEnvio ? new Date(aluno.dataEnvio).toLocaleDateString('pt-BR') : '-';
+
+        // Criar Card
+        const card = document.createElement('div');
+        card.className = 'student-card';
+        card.innerHTML = `
+            <div class="card-header">
+                <div>
+                    <div class="student-name">${aluno.nome || 'Sem Nome'}</div>
+                    <div class="student-email">${aluno.email}</div>
+                </div>
+                <div class="status-badge ${statusClass}">${statusText}</div>
+            </div>
+
+            <div class="card-body">
+                <div>
+                    <span class="info-label">Objetivo</span>
+                    ${aluno.objetivo || '-'}
+                </div>
+                <div>
+                    <span class="info-label">Recebido em</span>
+                    ${dataFormatada}
+                </div>
+            </div>
+
+            <div class="card-actions">
+                <span class="info-label">Link do Treino (PDF/Sheet)</span>
+                <input type="text" class="link-input" id="input-${aluno.id}" 
+                       value="${aluno.linkTreino || ''}" 
+                       placeholder="Cole https://..." autocomplete="off">
+                
+                <div class="btn-group">
+                    <a href="https://wa.me/55?text=Oi ${aluno.nome}, tudo bem?" target="_blank" class="btn-whatsapp" title="Chamar no WhatsApp">
+                        💬
+                    </a>
+                    <button class="btn-save" onclick="salvarTreino('${aluno.id}')">
+                        SALVAR
+                    </button>
+                </div>
+            </div>
+        `;
+        studentsGrid.appendChild(card);
+    });
+}
+
+// 4. FUNÇÃO DE BUSCA (Filtra sem recarregar página)
+searchBox.addEventListener('input', (e) => {
+    const termo = e.target.value.toLowerCase();
+    const filtrados = allStudents.filter(aluno => 
+        (aluno.nome && aluno.nome.toLowerCase().includes(termo)) ||
+        (aluno.email && aluno.email.toLowerCase().includes(termo))
+    );
+    renderizarAlunos(filtrados);
+});
+
+// 5. FUNÇÃO DE SALVAR (Global)
 window.salvarTreino = async (docId) => {
     const input = document.getElementById(`input-${docId}`);
-    const novoLink = input.value;
-    const btn = input.parentElement.nextElementSibling.querySelector('button');
+    const btn = input.parentElement.querySelector('.btn-save');
+    const originalText = btn.textContent;
 
-    // Feedback visual
-    btn.textContent = "Salvando...";
+    btn.textContent = "...";
     btn.style.opacity = "0.7";
 
     try {
         const alunoRef = doc(db, "anamneses", docId);
         await updateDoc(alunoRef, {
-            linkTreino: novoLink
+            linkTreino: input.value
         });
 
-        btn.textContent = "Salvo!";
+        // Sucesso Visual
+        btn.textContent = "✔ OK";
         btn.style.backgroundColor = "#00ff00";
+        btn.style.color = "black";
+        
+        // Atualiza o status badge visualmente sem recarregar tudo
+        const card = btn.closest('.student-card');
+        const badge = card.querySelector('.status-badge');
+        if (input.value.length > 5) {
+            badge.className = 'status-badge status-ok';
+            badge.textContent = 'TREINO OK';
+        } else {
+            badge.className = 'status-badge status-pending';
+            badge.textContent = 'PENDENTE';
+        }
+
         setTimeout(() => {
-            btn.textContent = "Salvar";
-            btn.style.backgroundColor = "var(--primary-color)";
+            btn.textContent = originalText;
+            btn.style.backgroundColor = ""; // Volta ao original
+            btn.style.color = "";
+            btn.style.opacity = "1";
         }, 2000);
 
     } catch (error) {
-        alert("Erro ao salvar: " + error.message);
+        alert("Erro: " + error.message);
         btn.textContent = "Erro";
     }
 };
 
-// Auxiliar para limpar telefone (se você coletar telefone no futuro)
-function limparTelefone(tel) {
-    if(!tel) return "";
-    return tel.replace(/\D/g, ''); // Remove tudo que não é número
-}
-
-// 4. LOGOUT
+// 6. LOGOUT
 if (logoutBtn) {
     logoutBtn.addEventListener('click', async () => {
         await signOut(auth);
