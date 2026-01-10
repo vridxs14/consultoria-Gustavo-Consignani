@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finalizar Compra | Gustavo Consignani</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <style>
+        .checkout-section { padding: 120px 20px; text-align: center; max-width: 600px; margin: 0 auto; }
+        .checkout-card { background: var(--bg-card); padding: 40px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); }
+        .plan-summary { margin: 30px 0; padding: 20px; background: #000; border-radius: 5px; border-left: 4px solid var(--primary-color); text-align: left; }
+        .price-tag { font-size: 1.5rem; color: var(--primary-color); font-weight: bold; float: right; }
+        #loading-msg { font-size: 1.2rem; color: #888; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">Gustavo<span>Consignani</span></a>
+        </div>
+    </header>
+
+    <section class="checkout-section">
+        <div id="loading-check">
+            <p id="loading-msg">Verificando sua conta...</p>
+        </div>
+
+        <div id="checkout-content" class="checkout-card hidden">
+            <h1>Resumo do Pedido</h1>
+            <p>Você está a um passo de transformar seu corpo.</p>
+
+            <div class="plan-summary">
+                <span id="plan-name">Plano Selecionado</span>
+                <span id="plan-price" class="price-tag">R$ 0,00</span>
+                <div style="clear: both; padding-top: 10px; font-size: 0.9rem; color: #ccc;" id="plan-desc">Detalhes...</div>
+            </div>
+
+            <div class="user-info" style="margin-bottom: 30px; text-align: left;">
+                <p><strong>Aluno:</strong> <span id="user-email">...</span></p>
+            </div>
+
+            <a id="btn-pay" href="#" class="btn btn-primary" style="width: 100%;">IR PARA PAGAMENTO SEGURO</a>
+            <p style="margin-top: 15px; font-size: 0.8rem; color: #666;">Ambiente criptografado pelo Mercado Pago</p>
+        </div>
+    </section>
+
+    <script type="module">
+        import { auth } from './assets/js/firebase-config.js';
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const selectedPlan = urlParams.get('plano'); // Pega ?plano=mensal da URL
+
+        // CONFIGURAÇÃO DOS SEUS LINKS (COLE SEUS LINKS DO MERCADO PAGO AQUI)
+        const plansData = {
+            'mensal': { name: 'Consultoria Mensal', price: 'R$ 129,97', link: 'SEU_LINK_MERCADO_PAGO_MENSAL', desc: 'Renovação mensal sem fidelidade.' },
+            'trimestral': { name: 'Consultoria Trimestral', price: 'R$ 299,70', link: 'SEU_LINK_MERCADO_PAGO_TRIMESTRAL', desc: 'Plano de 3 meses (Equivalente a R$ 99,90/mês).' },
+            'semestral': { name: 'Consultoria Semestral', price: 'R$ 539,40', link: 'SEU_LINK_MERCADO_PAGO_SEMESTRAL', desc: 'Plano de 6 meses (Melhor valor).' }
+        };
+
+        const loadingDiv = document.getElementById('loading-check');
+        const contentDiv = document.getElementById('checkout-content');
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // 1. Usuário está logado: Mostra o checkout
+                if (!selectedPlan || !plansData[selectedPlan]) {
+                    alert("Plano inválido. Voltando para Planos.");
+                    window.location.href = 'planos.html';
+                    return;
+                }
+
+                // Preenche os dados na tela
+                document.getElementById('plan-name').textContent = plansData[selectedPlan].name;
+                document.getElementById('plan-price').textContent = plansData[selectedPlan].price;
+                document.getElementById('plan-desc').textContent = plansData[selectedPlan].desc;
+                document.getElementById('user-email').textContent = user.email;
+                
+                // Configura o botão
+                document.getElementById('btn-pay').href = plansData[selectedPlan].link;
+
+                // Mostra a tela
+                loadingDiv.style.display = 'none';
+                contentDiv.classList.remove('hidden');
+
+            } else {
+                // 2. Não está logado: Manda para o Login (levando o plano junto)
+                // Ex: login.html?redirect=checkout&plano=trimestral
+                window.location.href = `login.html?redirect=checkout&plano=${selectedPlan}`;
+            }
+        });
+    </script>
+</body>
+</html>
