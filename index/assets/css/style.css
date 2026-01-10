@@ -1,1 +1,130 @@
+/* =========================================
+   1. VARIÁVEIS (ROOT) - Tema Dark/Moderno
+   ========================================= */
+:root {
+    /* Cores */
+    --primary-color: #CCFF00; /* Verde Neon para destaque/ação */
+    --primary-hover: #b3e600;
+    --bg-dark: #0a0a0a;       /* Fundo quase preto */
+    --bg-card: #141414;       /* Fundo de elementos */
+    --text-white: #ffffff;
+    --text-gray: #a3a3a3;
+    --overlay-color: rgba(0, 0, 0, 0.75); /* Escurecer imagem de fundo */
+    
+    /* Tipografia */
+    --font-primary: 'Montserrat', sans-serif; /* Títulos */
+    --font-body: 'Open Sans', sans-serif;     /* Texto corrido */
+    
+    /* Espaçamento */
+    --container-width: 1200px;
+    --header-height: 80px;
+}
 
+/* =========================================
+   2. RESET & GLOBAL
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-primary);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: 0.3s;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* =========================================
+   3. CLASSES UTILITÁRIAS
+   ========================================= */
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+/* =========================================
+   4. SEÇÃO: HERO (LAYOUT)
+   ========================================= */
+.hero {
+    height: 100vh; /* Tela cheia */
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-top: var(--header-height); /* Compensar header fixo */
+    
+    /* Imagem de fundo com overlay */
+    background: linear-gradient(var(--overlay-color), var(--overlay-color)),
+                url('../img/hero-bg.jpg') no-repeat center center/cover;
+    /* Nota: Certifique-se de ter uma imagem 'hero-bg.jpg' na pasta img ou altere a URL */
+}
+
+.hero-content {
+    max-width: 700px;
+    z-index: 2;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.hero h1 span {
+    color: var(--primary-color);
+}
+
+.hero h2 {
+    font-size: 1.2rem;
+    color: var(--text-gray);
+    font-weight: 400;
+    margin-bottom: 2.5rem;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+/* Responsividade Hero */
+@media (min-width: 768px) {
+    .hero h1 {
+        font-size: 3.5rem;
+    }
+    
+    .hero h2 {
+        font-size: 1.5rem;
+    }
+}
