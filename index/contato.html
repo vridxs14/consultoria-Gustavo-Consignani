@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contato | IronBody</title>
+    <title>Contato | Gustavo Consignani</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,10 +13,7 @@
     <link rel="stylesheet" href="assets/css/components.css">
 
     <style>
-        .contact-section {
-            padding: 120px 0 80px;
-        }
-
+        .contact-section { padding: 120px 0 80px; }
         .contact-wrapper {
             display: grid;
             grid-template-columns: 1fr 1.5fr;
@@ -26,82 +23,18 @@
             overflow: hidden;
             border: 1px solid rgba(255,255,255,0.05);
         }
-
-        /* Coluna da Esquerda (Infos) */
-        .contact-info {
-            background-color: #1a1a1a;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .info-item {
-            margin-bottom: 30px;
-        }
-
-        .info-item h3 {
-            color: var(--primary-color);
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-        }
-
-        .info-item p, .info-item a {
-            color: #ccc;
-            font-size: 0.95rem;
-        }
-
-        .info-item a:hover {
-            color: var(--primary-color);
-        }
-
-        /* Coluna da Direita (Formulário) */
-        .contact-form {
-            padding: 40px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #ddd;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px;
-            background-color: var(--bg-dark);
-            border: 1px solid #333;
-            border-radius: 5px;
-            color: var(--text-white);
-            font-family: var(--font-body);
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary-color);
-        }
-
-        textarea.form-control {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        /* Responsividade */
+        .contact-info { background-color: #1a1a1a; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+        .info-item { margin-bottom: 30px; }
+        .info-item h3 { color: var(--primary-color); font-size: 1.1rem; margin-bottom: 10px; }
+        .info-item p, .info-item a { color: #ccc; font-size: 0.95rem; }
+        .contact-form { padding: 40px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #ddd; }
+        .form-control { width: 100%; padding: 12px; background-color: var(--bg-dark); border: 1px solid #333; border-radius: 5px; color: var(--text-white); }
+        .form-control:focus { outline: none; border-color: var(--primary-color); }
+        
         @media (max-width: 768px) {
-            .contact-wrapper {
-                grid-template-columns: 1fr;
-            }
-            .contact-info {
-                padding: 30px;
-            }
-            .contact-form {
-                padding: 30px;
-            }
+            .contact-wrapper { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -109,15 +42,15 @@
 
     <header class="header">
         <div class="container">
-            <a href="index.html" class="logo">Iron<span>Body</span></a>
+            <a href="index.html" class="logo">Gustavo<span>Consignani</span></a>
             <div class="menu-toggle" id="mobile-menu">&#9776;</div>
             <nav>
                 <ul class="nav-menu">
                     <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="sobre.html" class="nav-link">Sobre</a></li>
+                    <li><a href="sobre.html" class="nav-link">Sobre Mim</a></li>
                     <li><a href="planos.html" class="nav-link">Planos</a></li>
-                    <li><a href="faq.html" class="nav-link">FAQ</a></li>
-                    <li><a href="login.html" class="nav-link nav-link-login">Login</a></li>
+                    <li><a href="faq.html" class="nav-link">Dúvidas</a></li>
+                    <li><a href="login.html" class="nav-link nav-link-login">Área do Aluno</a></li>
                 </ul>
             </nav>
         </div>
@@ -130,50 +63,38 @@
             <div class="contact-info">
                 <div class="info-item">
                     <h3>WhatsApp</h3>
-                    <p>Atendimento rápido para dúvidas.</p>
-                    <a href="https://wa.me/5500000000000" target="_blank">(11) 99999-9999</a>
+                    <p>Dúvidas sobre os planos?</p>
+                    <a href="#" target="_blank">(XX) 99999-9999</a>
                 </div>
 
                 <div class="info-item">
                     <h3>E-mail</h3>
-                    <p>Para parcerias e suporte técnico.</p>
-                    <a href="mailto:contato@ironbody.com.br">contato@ironbody.com.br</a>
+                    <p>Suporte técnico e parcerias.</p>
+                    <a href="mailto:contato@gustavoconsignani.com.br">contato@gustavoconsignani.com.br</a>
                 </div>
 
                 <div class="info-item">
-                    <h3>Redes Sociais</h3>
-                    <p>Siga para dicas diárias de treino.</p>
-                    <a href="#">@ironbody_personal</a>
+                    <h3>Instagram</h3>
+                    <p>Dicas diárias de treino.</p>
+                    <a href="#">@gustavo.consignani</a>
                 </div>
             </div>
 
             <div class="contact-form">
                 <form action="#" method="POST">
                     <div class="form-group">
-                        <label for="nome">Nome Completo</label>
-                        <input type="text" id="nome" name="nome" class="form-control" placeholder="Seu nome" required>
+                        <label>Nome Completo</label>
+                        <input type="text" name="nome" class="form-control" required>
                     </div>
-
                     <div class="form-group">
-                        <label for="email">E-mail</label>
-                        <input type="email" id="email" name="email" class="form-control" placeholder="seu@email.com" required>
+                        <label>E-mail</label>
+                        <input type="email" name="email" class="form-control" required>
                     </div>
-
                     <div class="form-group">
-                        <label for="assunto">Assunto</label>
-                        <select id="assunto" name="assunto" class="form-control">
-                            <option value="duvida">Dúvida sobre Planos</option>
-                            <option value="suporte">Suporte Técnico</option>
-                            <option value="outros">Outros</option>
-                        </select>
+                        <label>Mensagem</label>
+                        <textarea name="mensagem" class="form-control" rows="5" placeholder="Sua dúvida..."></textarea>
                     </div>
-
-                    <div class="form-group">
-                        <label for="mensagem">Mensagem</label>
-                        <textarea id="mensagem" name="mensagem" class="form-control" placeholder="Como posso te ajudar?"></textarea>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar Mensagem</button>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar</button>
                 </form>
             </div>
         </div>
