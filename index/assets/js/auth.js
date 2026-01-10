@@ -122,27 +122,31 @@ if (registerForm) {
 }
 
 /* =========================================
-   5. OBSERVEDOR DE ESTADO (Global)
+   5. OBSERVEDOR DE ESTADO (Lógica de Redirecionamento)
    ========================================= */
-// Verifica se o usuário logou ou deslogou
 onAuthStateChanged(auth, (user) => {
     if (user) {
-        // Usuário está logado
         console.log("Usuário logado:", user.email);
         
-        // Se estivermos na página de login, redirecionar para a área restrita
+        // Verifica se estamos na página de login
         if (window.location.pathname.includes('login')) {
-            window.location.href = 'dashboard.html';
-        }
-    } else {
-        // Usuário não está logado
-        // Se estivermos em uma página protegida (ex: anamnese), redirecionar para login
-        if (window.location.pathname.includes('anamnese')) {
-            window.location.href = 'login.html';
-        }
-    }
-});
+            
+            // Verifica se tem parâmetros na URL (ex: ?redirect=checkout&plano=mensal)
+            const urlParams = new URLSearchParams(window.location.search);
+            const redirectPage = urlParams.get('redirect');
+            const planType = urlParams.get('plano');
 
+            if (redirectPage === 'checkout' && planType) {
+                // Se veio da compra, devolve para a compra
+                window.location.href = `checkout.html?plano=${planType}`;
+            } else {
+                // Se for login normal, vai pro dashboard
+                window.location.href = 'dashboard.html';
+            }
+        }
+    } 
+    // Se não estiver logado, as páginas protegidas (checkout, dashboard) já têm proteção interna
+});
 /* =========================================
    6. LOGOUT (Para usar em outras páginas)
    ========================================= */
