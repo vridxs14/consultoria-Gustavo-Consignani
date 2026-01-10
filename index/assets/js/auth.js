@@ -131,13 +131,13 @@ onAuthStateChanged(auth, (user) => {
         console.log("Usuário logado:", user.email);
         
         // Se estivermos na página de login, redirecionar para a área restrita
-        if (window.location.pathname.includes('login.html')) {
+        if (window.location.pathname.includes('login')) {
             window.location.href = 'anamnese.html';
         }
     } else {
         // Usuário não está logado
         // Se estivermos em uma página protegida (ex: anamnese), redirecionar para login
-        if (window.location.pathname.includes('anamnese.html')) {
+        if (window.location.pathname.includes('anamnese')) {
             window.location.href = 'login.html';
         }
     }
