@@ -42,7 +42,7 @@ if (logoutBtn) {
                     <div style="background: #000; padding: 20px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #333;">
                         <h3 style="color: white; margin-bottom: 10px;">1. Confirme no WhatsApp</h3>
                         <p style="font-size: 0.9rem; color: #999; margin-bottom: 15px;">Me avise que já preencheu para eu priorizar seu treino.</p>
-                        <a href="https://wa.me/55SEUNUMEROAQUI?text=Olá Gustavo, acabei de preencher a anamnese!" target="_blank" class="btn btn-primary" style="width: 100%; display:block;">Chamar no WhatsApp</a>
+                        <a href="https://wa.me/55948699293?text=Olá Gustavo, acabei de preencher a anamnese!" target="_blank" class="btn btn-primary" style="width: 100%; display:block;">Chamar no WhatsApp</a>
                     </div>
 
                     <div style="background: #000; padding: 20px; border-radius: 10px; border: 1px solid #333;">
