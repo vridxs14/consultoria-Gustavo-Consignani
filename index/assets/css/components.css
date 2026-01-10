@@ -1,1 +1,133 @@
+/* =========================================
+   1. BOTÕES (CTA)
+   ========================================= */
+.btn {
+    display: inline-block;
+    padding: 12px 32px;
+    border-radius: 5px;
+    font-weight: 700;
+    font-family: var(--font-primary);
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
 
+/* Botão Primário (Destaque) */
+.btn-primary {
+    background-color: var(--primary-color);
+    color: #000; /* Texto preto para contraste no neon */
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(204, 255, 0, 0.4);
+}
+
+/* Botão Secundário (Outline) */
+.btn-secondary {
+    background-color: transparent;
+    border-color: var(--text-white);
+    color: var(--text-white);
+}
+
+.btn-secondary:hover {
+    background-color: var(--text-white);
+    color: #000;
+}
+
+/* =========================================
+   2. HEADER / NAVBAR
+   ========================================= */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--header-height);
+    background-color: rgba(10, 10, 10, 0.95); /* Fundo semi-transparente */
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Logo */
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-white);
+    font-family: var(--font-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.logo span {
+    color: var(--primary-color);
+}
+
+/* Menu Desktop */
+.nav-menu {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-link {
+    font-size: 0.95rem;
+    font-weight: 500;
+    position: relative;
+}
+
+.nav-link:hover {
+    color: var(--primary-color);
+}
+
+.nav-link.active {
+    color: var(--primary-color);
+}
+
+.nav-link-login {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+/* Menu Mobile Toggle (Hambúrguer) */
+.menu-toggle {
+    display: none; /* Escondido no desktop */
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+
+/* Responsividade Header */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-menu {
+        position: absolute;
+        top: var(--header-height);
+        left: 0;
+        width: 100%;
+        background-color: var(--bg-dark);
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+        gap: 20px;
+        /* Escondido por padrão no mobile - JS vai alternar isso */
+        display: none; 
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+}
