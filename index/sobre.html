@@ -1,1 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Mim | IronBody</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    
+    <style>
+        .about-hero {
+            padding: 120px 0 60px;
+            text-align: center;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+        
+        .about-img img {
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 2px solid var(--primary-color);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 8px;
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+
+        .testimonials {
+            background-color: var(--bg-card);
+            padding: 80px 0;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .testimonial-card {
+            background: var(--bg-dark);
+            padding: 30px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .client-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .client-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #333; /* Placeholder image */
+            object-fit: cover;
+        }
+
+        @media (max-width: 768px) {
+            .about-content { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">Iron<span>Body</span></a>
+            <div class="menu-toggle" id="mobile-menu">&#9776;</div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="sobre.html" class="nav-link active">Sobre</a></li>
+                    <li><a href="planos.html" class="nav-link">Planos</a></li>
+                    <li><a href="faq.html" class="nav-link">FAQ</a></li>
+                    <li><a href="login.html" class="nav-link nav-link-login">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="about-hero container">
+        <h1>Minha Missão é a <span style="color:var(--primary-color)">Sua Evolução</span></h1>
+        <p>Mais do que treinos, construímos um estilo de vida sustentável.</p>
+    </section>
+
+    <section class="container">
+        <div class="about-content">
+            <div class="about-img">
+                <img src="assets/img/trainer.jpg" alt="Foto do Treinador" style="min-height: 400px; background: #333;"> 
+            </div>
+            <div class="about-text">
+                <h2>De Atleta a Treinador</h2>
+                <p>Olá, sou o [Seu Nome]. Minha jornada começou quando percebi que a academia tradicional falhava com a maioria das pessoas por falta de direcionamento.</p>
+                <br>
+                <p>Após anos de estudo e prática, desenvolvi uma metodologia que une ciência esportiva e comportamento humano. Não acredito em "projetos verão", acredito em consistência.</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number">+500</span>
+                        <span>Alunos Transformados</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">8</span>
+                        <span>Anos de Experiência</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">100%</span>
+                        <span>Focado em Você</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="container">
+            <h2 style="text-align: center;">O que dizem meus alunos</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p>"Eu achava que não tinha tempo para treinar. A consultoria organizou minha rotina e perdi 10kg em 3 meses sem loucuras."</p>
+                    <div class="client-info">
+                        <img src="assets/img/avatar1.jpg" alt="" class="client-avatar">
+                        <div>
+                            <h4>Carlos Mendes</h4>
+                            <small>Consultoria Trimestral</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"O suporte no WhatsApp faz toda a diferença. Ter alguém corrigindo meus movimentos por vídeo me deu segurança."</p>
+                    <div class="client-info">
+                        <img src="assets/img/avatar2.jpg" alt="" class="client-avatar">
+                        <div>
+                            <h4>Fernanda Costa</h4>
+                            <small>Consultoria Mensal</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Investimento que vale cada centavo. A planilha de treinos é super intuitiva e os resultados são reais."</p>
+                    <div class="client-info">
+                        <img src="assets/img/avatar3.jpg" alt="" class="client-avatar">
+                        <div>
+                            <h4>Rafael Souza</h4>
+                            <small>Consultoria Semestral</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
