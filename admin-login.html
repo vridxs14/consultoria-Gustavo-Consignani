@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acesso Administrativo | Gustavo Consignani</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+
+    <style>
+        body {
+            background-color: #050505; /* Fundo mais escuro que o normal */
+            display: flex; flex-direction: column; min-height: 100vh;
+        }
+        .admin-login-container {
+            flex: 1; display: flex; align-items: center; justify-content: center; padding: 20px;
+        }
+        .admin-card {
+            background-color: #111;
+            padding: 40px;
+            border-radius: 8px;
+            width: 100%; max-width: 400px;
+            border: 1px solid #333;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            text-align: center;
+        }
+        .admin-card h1 { font-size: 1.5rem; color: white; margin-bottom: 5px; }
+        .admin-card p { color: #666; font-size: 0.8rem; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-control { 
+            background: #000; border: 1px solid #333; color: white; padding: 15px; 
+            border-radius: 4px; width: 100%; transition: 0.3s;
+        }
+        .form-control:focus { border-color: var(--primary-color); outline: none; }
+        
+        .btn-admin {
+            background: white; color: black; font-weight: 800; border: none; padding: 15px; 
+            width: 100%; border-radius: 4px; cursor: pointer; text-transform: uppercase;
+        }
+        .btn-admin:hover { background: var(--primary-color); }
+
+        .error-msg { 
+            color: #ff4444; background: rgba(255, 68, 68, 0.1); 
+            padding: 10px; border-radius: 4px; font-size: 0.9rem; margin-bottom: 20px; display: none; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="admin-login-container">
+        <div class="admin-card">
+            <div id="error-box" class="error-msg"></div>
+
+            <h1>Gustavo Consignani</h1>
+            <p>Painel Administrativo</p>
+            
+            <form id="admin-form">
+                <div class="form-group">
+                    <input type="email" id="email" class="form-control" placeholder="E-mail Admin" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" class="form-control" placeholder="Senha" required>
+                </div>
+                <button type="submit" id="btn-submit" class="btn-admin">Entrar</button>
+            </form>
+            
+            <div style="margin-top: 30px;">
+                <a href="index.html" style="color: #444; font-size: 0.8rem; text-decoration: none;">&larr; Voltar ao site</a>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="assets/js/admin-login.js"></script>
+</body>
+</html>
