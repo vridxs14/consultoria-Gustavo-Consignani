@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sobre Gustavo Consignani</title>
+    <title>Sobre e Metodologia | Gustavo Consignani</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,81 +13,70 @@
     <link rel="stylesheet" href="assets/css/components.css">
     
     <style>
-        .about-hero {
-            padding: 120px 0 60px;
+        /* HERO SIMPLES */
+        .page-header {
+            padding: 140px 0 60px;
             text-align: center;
+            background: linear-gradient(to bottom, #000, #111);
         }
-        
-        .about-content {
+
+        /* SEÇÃO 1: SOBRE MIM */
+        .bio-section { padding: 80px 0; }
+        .bio-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1.2fr;
             gap: 60px;
-            align-items: start;
-            margin-bottom: 80px;
+            align-items: center;
         }
-        
-        .about-img img {
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        .bio-img img {
+            width: 100%; border-radius: 12px;
             border: 2px solid var(--primary-color);
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-            min-height: 450px;
+            box-shadow: -20px 20px 0 rgba(204, 255, 0, 0.1);
         }
-
-        .text-highlight {
+        .bio-text h2 { color: white; margin-bottom: 20px; font-size: 2rem; }
+        .bio-text h4 { color: var(--primary-color); margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; }
+        .quote-box {
             border-left: 4px solid var(--primary-color);
-            padding-left: 20px;
-            margin: 30px 0;
-            font-style: italic;
-            color: #ddd;
             background: rgba(255,255,255,0.05);
-            padding: 20px;
-            border-radius: 0 10px 10px 0;
+            padding: 20px; margin: 30px 0;
+            font-style: italic; color: #ddd;
         }
 
-        /* TIMELINE DO PROCESSO */
-        .process-section {
-            background-color: #111;
-            padding: 80px 20px;
-            border-top: 1px solid #333;
-            border-bottom: 1px solid #333;
-        }
-
-        .process-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-top: 40px;
-        }
-
-        .process-step {
+        /* SEÇÃO 2: SOBRE A CONSULTORIA */
+        .method-section {
+            background-color: #1a1a1a; /* Fundo diferente para separar */
+            padding: 100px 0;
             position: relative;
-            padding: 20px;
-            background: var(--bg-card);
+        }
+        .method-header { text-align: center; max-width: 700px; margin: 0 auto 60px; }
+        .method-header h2 { font-size: 2.2rem; margin-bottom: 15px; }
+        
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+        .step-card {
+            background: #0a0a0a;
+            padding: 30px;
             border-radius: 10px;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: transform 0.3s;
+            border: 1px solid #333;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
         }
-
-        .process-step:hover { transform: translateY(-5px); border-color: var(--primary-color); }
-
-        .step-number {
-            font-size: 3rem;
-            font-weight: 800;
-            color: rgba(255,255,255,0.1);
-            position: absolute;
-            top: 10px;
-            right: 20px;
+        .step-card:hover { transform: translateY(-10px); border-color: var(--primary-color); }
+        .step-num {
+            font-size: 4rem; font-weight: 800; color: rgba(255,255,255,0.05);
+            position: absolute; right: 10px; top: -10px;
         }
-
-        .step-title { color: var(--primary-color); font-weight: 700; margin-bottom: 10px; font-size: 1.1rem; }
-        .step-desc { font-size: 0.9rem; color: #ccc; line-height: 1.6; }
+        .step-icon { font-size: 2rem; margin-bottom: 20px; display: block; }
+        .step-title { color: var(--primary-color); font-size: 1.1rem; margin-bottom: 15px; }
+        .step-desc { font-size: 0.9rem; color: #bbb; line-height: 1.6; }
 
         @media (max-width: 900px) {
-            .about-content { grid-template-columns: 1fr; }
-            .about-img img { min-height: 300px; }
+            .bio-grid { grid-template-columns: 1fr; }
+            .bio-img { order: -1; margin-bottom: 30px; }
         }
     </style>
 </head>
@@ -100,8 +89,7 @@
             <nav>
                 <ul class="nav-menu">
                     <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="sobre.html" class="nav-link active">Sobre Mim</a></li>
-                    <li><a href="planos.html" class="nav-link">Planos</a></li>
+                    <li><a href="sobre.html" class="nav-link active">Sobre</a></li> <li><a href="planos.html" class="nav-link">Planos</a></li>
                     <li><a href="faq.html" class="nav-link">Dúvidas</a></li>
                     <li><a href="login.html" class="nav-link nav-link-login">Área do Aluno</a></li>
                 </ul>
@@ -109,68 +97,84 @@
         </div>
     </header>
 
-    <section class="about-hero container">
-        <h1>Por trás do <span style="color:var(--primary-color)">Protocolo</span></h1>
-        <p>Conheça a metodologia que vai transformar seu corpo sem sacrificar sua saúde.</p>
-    </section>
+    <div class="page-header">
+        <div class="container">
+            <h1>Experiência & <span style="color:var(--primary-color)">Metodologia</span></h1>
+            <p>Conheça o profissional e entenda como funciona o processo.</p>
+        </div>
+    </div>
 
-    <section class="container">
-        <div class="about-content">
-            <div class="about-img">
-                <img src="assets/img/gustavo.jpg" alt="Gustavo Consignani" style="background-color: #222;">
+    <section class="bio-section container">
+        <div class="bio-grid">
+            <div class="bio-img">
+                <img src="assets/img/gustavo.jpg" alt="Gustavo Consignani">
             </div>
-            
-            <div class="about-text">
-                <h2>Olá, sou Gustavo Consignani</h2>
-                <h4 style="color: #888; margin-bottom: 20px;">Personal Trainer & Especialista em Treinamento</h4>
+            <div class="bio-text">
+                <h4>Sobre Mim</h4>
+                <h2>Gustavo Consignani</h2>
+                <p>Muitas pessoas chegam até mim frustradas. Treinam há meses, fazem dieta, mas o corpo não muda. O problema quase nunca é falta de esforço. É falta de estratégia.</p>
+                <br>
+                <p>Sou especialista em treinamento esportivo e meu foco é remover a "adivinhação" da sua rotina. Eu estudo sua anatomia e seus objetivos para criar o caminho mais seguro e eficiente.</p>
                 
-                <p>Muitas pessoas chegam até mim frustradas. Treinam há meses, fazem dieta, mas o corpo não muda. O problema quase nunca é falta de esforço. É falta de <strong>estratégia</strong>.</p>
-                
-                <div class="text-highlight">
-                    "Eu não uso robôs para montar seu treino. É por isso que peço <strong>5 dias úteis</strong>. Eu sento, analiso sua anatomia e sua rotina para desenhar um mapa seguro para você."
+                <div class="quote-box">
+                    "Eu não uso robôs. Peço 5 dias úteis justamente para analisar seu caso manualmente. Cada exercício na sua ficha tem um porquê."
                 </div>
 
-                <h3>Minha Metodologia</h3>
-                <p>O foco é remover a adivinhação. Todo o protocolo é desenvolvido manualmente por mim, de forma personalizada e exclusiva para o seu objetivo.</p>
+                <div style="display: flex; gap: 30px; margin-top: 30px;">
+                    <div>
+                        <span style="font-size: 1.5rem; font-weight: 800; color: white;">+200</span>
+                        <div style="font-size: 0.8rem; color: #888;">Alunos Ativos</div>
+                    </div>
+                    <div>
+                        <span style="font-size: 1.5rem; font-weight: 800; color: white;">100%</span>
+                        <div style="font-size: 0.8rem; color: #888;">Personalizado</div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="process-section">
+    <section class="method-section">
         <div class="container">
-            <h2 style="text-align: center;">Como Funciona a Consultoria</h2>
-            <p style="text-align: center; color: #888;">Do cadastro à entrega do seu treino em 4 passos.</p>
+            <div class="method-header">
+                <h2>Como Funciona a Consultoria?</h2>
+                <p>Entenda a jornada desde o momento da compra até o seu primeiro treino.</p>
+            </div>
 
-            <div class="process-grid">
+            <div class="steps-container">
                 
-                <div class="process-step">
-                    <span class="step-number">01</span>
+                <div class="step-card">
+                    <span class="step-num">01</span>
+                    <span class="step-icon">🔐</span>
                     <h3 class="step-title">Cadastro & Compra</h3>
-                    <p class="step-desc">Antes de realizar o pagamento, você cria sua conta segura no site. Esse cadastro é fundamental para organizar seu acesso desde o primeiro momento[cite: 3, 4].</p>
+                    <p class="step-desc">Tudo começa com seu cadastro seguro aqui no site. Ele é necessário para liberar a compra e garantir que você tenha acesso à área de membros futuramente.</p>
                 </div>
 
-                <div class="process-step">
-                    <span class="step-number">02</span>
-                    <h3 class="step-title">Anamnese & Fotos</h3>
-                    <p class="step-desc">Após confirmar a compra, você preenche a anamnese e envia suas fotos. É aqui que entendo seu histórico, lesões e rotina para montar sua estratégia[cite: 7, 8].</p>
+                <div class="step-card">
+                    <span class="step-num">02</span>
+                    <span class="step-icon">📋</span>
+                    <h3 class="step-title">Anamnese Completa</h3>
+                    <p class="step-desc">Após o pagamento, você preenche a ficha técnica e envia suas fotos. É aqui que eu entendo suas lesões, rotina e o que você realmente quer mudar no seu corpo.</p>
                 </div>
 
-                <div class="process-step">
-                    <span class="step-number">03</span>
-                    <h3 class="step-title">Suporte via WhatsApp</h3>
-                    <p class="step-desc">Enviou a ficha? Você será direcionado para o meu WhatsApp. Lá você tem acesso direto a mim para tirar dúvidas durante todo o acompanhamento[cite: 10, 11].</p>
+                <div class="step-card">
+                    <span class="step-num">03</span>
+                    <span class="step-icon">💬</span>
+                    <h3 class="step-title">Suporte no WhatsApp</h3>
+                    <p class="step-desc">Enviou a ficha? Você será direcionado para o meu WhatsApp pessoal. Lá teremos um canal direto para tirar dúvidas durante todo o acompanhamento.</p>
                 </div>
 
-                <div class="process-step">
-                    <span class="step-number">04</span>
+                <div class="step-card">
+                    <span class="step-num">04</span>
+                    <span class="step-icon">📱</span>
                     <h3 class="step-title">Entrega no App MFIT</h3>
-                    <p class="step-desc">Baixe o aplicativo <strong>MFIT Personal</strong>. Assim que eu finalizar a criação manual do seu treino, ele aparecerá lá e você receberá um aviso por e-mail[cite: 14, 15].</p>
+                    <p class="step-desc">Você baixa o aplicativo <strong>MFIT Personal</strong>. Assim que eu finalizar a montagem manual do seu treino, ele aparecerá lá e você recebe o aviso.</p>
                 </div>
 
             </div>
 
-            <div style="text-align: center; margin-top: 50px;">
-                <a href="planos.html" class="btn btn-primary">Começar Agora</a>
+            <div style="text-align: center; margin-top: 60px;">
+                <a href="planos.html" class="btn btn-primary" style="padding: 15px 40px;">Começar Minha Jornada</a>
             </div>
         </div>
     </section>
