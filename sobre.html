@@ -1,6 +1,11 @@
+<!-- 
+  Este é o arquivo HTML para a página "Sobre".
+  Ele segue a mesma estrutura básica do index.html.
+-->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <!-- Metadados, título e links para fontes e folhas de estilo, assim como no index.html -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sobre e Metodologia | Gustavo Consignani</title>
@@ -12,33 +17,37 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/components.css">
     
+    <!-- 
+      A tag <style> aqui dentro do <head> contém CSS que é aplicado APENAS a esta página.
+      Isso é útil para estilos muito específicos que não serão reutilizados em outros lugares.
+    -->
     <style>
-        /* HERO SIMPLES */
+        /* HERO SIMPLES: Estiliza o cabeçalho principal da página. */
         .page-header {
-            padding: 140px 0 60px;
-            text-align: center;
-            background: linear-gradient(to bottom, #000, #111);
+            padding: 140px 0 60px; /* Espaçamento interno (cima/baixo, lados) */
+            text-align: center; /* Centraliza o texto */
+            background: linear-gradient(to bottom, #000, #111); /* Fundo com gradiente */
         }
 
-        /* SEÇÃO 1: SOBRE MIM */
-        .bio-section { padding: 80px 0; }
+        /* SEÇÃO 1: SOBRE MIM: Estiliza a seção de biografia. */
+        .bio-section { padding: 80px 0; } /* Espaçamento da seção */
         .bio-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 60px;
-            align-items: center;
+            display: grid; /* Usa o layout de grade do CSS para alinhar a foto e o texto. */
+            grid-template-columns: 1fr 1.2fr; /* Define que a segunda coluna (texto) é 1.2x mais larga que a primeira (imagem). */
+            gap: 60px; /* Espaço entre a foto e o texto. */
+            align-items: center; /* Alinha os itens verticalmente. */
         }
         .bio-img img {
-            width: 100%; border-radius: 12px;
-            border: 2px solid var(--primary-color);
-            box-shadow: -20px 20px 0 rgba(204, 255, 0, 0.1);
+            width: 100%; border-radius: 12px; /* A imagem ocupa 100% da sua coluna e tem bordas arredondadas. */
+            border: 2px solid var(--primary-color); /* Borda com a cor primária do site. */
+            box-shadow: -20px 20px 0 rgba(204, 255, 0, 0.1); /* Efeito de sombra na imagem. */
         }
+        /* Estilos para os textos da biografia (títulos, parágrafos, etc.) */
         .bio-text h2 { color: white; margin-bottom: 10px; font-size: 2rem; }
         .bio-text h4 { color: var(--primary-color); margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; }
-        
         .bio-text p { margin-bottom: 15px; color: #ccc; line-height: 1.6; }
         
-        .quote-box {
+        .quote-box { /* Estiliza a caixa de citação. */
             border-left: 4px solid var(--primary-color);
             background: rgba(255,255,255,0.05);
             padding: 20px; margin: 30px 0;
@@ -46,45 +55,53 @@
         }
 
         /* SEÇÃO 2: SOBRE A CONSULTORIA */
-        .method-section {
+        .method-section { /* Estiliza a seção que explica o método. */
             background-color: #1a1a1a; 
             padding: 100px 0;
             position: relative;
         }
         .method-header { text-align: center; max-width: 700px; margin: 0 auto 60px; }
-        .method-header h2 { font-size: 2.2rem; margin-bottom: 15px; }
         
-        .steps-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        .steps-container { /* Container para os passos da consultoria. */
+            display: grid; /* Usa grid para alinhar os cartões de passos. */
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Cria colunas responsivas: elas se ajustam automaticamente à largura da tela. */
             gap: 30px;
         }
-        .step-card {
+        .step-card { /* Estilo de cada cartão de passo. */
             background: #0a0a0a;
             padding: 30px;
             border-radius: 10px;
             border: 1px solid #333;
-            transition: 0.3s;
+            transition: 0.3s; /* Efeito de transição suave para interações. */
             position: relative;
             overflow: hidden;
         }
-        .step-card:hover { transform: translateY(-10px); border-color: var(--primary-color); }
-        .step-num {
+        .step-card:hover { transform: translateY(-10px); border-color: var(--primary-color); } /* Efeito ao passar o mouse. */
+        .step-num { /* Estilo do número grande no fundo do cartão. */
             font-size: 4rem; font-weight: 800; color: rgba(255,255,255,0.05);
             position: absolute; right: 10px; top: -10px;
         }
+        /* Estilos para ícone, título e descrição dentro do cartão */
         .step-icon { font-size: 2rem; margin-bottom: 20px; display: block; }
         .step-title { color: var(--primary-color); font-size: 1.1rem; margin-bottom: 15px; }
         .step-desc { font-size: 0.9rem; color: #bbb; line-height: 1.6; }
 
+        /* 
+          Media Query: Regra de CSS que só se aplica quando a tela é menor que 900px (celulares e tablets).
+          Isso torna o site "responsivo".
+        */
         @media (max-width: 900px) {
-            .bio-grid { grid-template-columns: 1fr; }
-            .bio-img { order: -1; margin-bottom: 30px; }
+            .bio-grid { grid-template-columns: 1fr; } /* A grade da biografia passa a ter uma única coluna. */
+            .bio-img { order: -1; margin-bottom: 30px; } /* A imagem passa para cima do texto. */
         }
     </style>
 </head>
 <body>
 
+    <!-- 
+      O cabeçalho é o mesmo usado na index.html. Reutilizar componentes assim
+      é uma boa prática que mantém o site consistente e facilita a manutenção.
+    -->
     <header class="header">
         <div class="container">
             <a href="index.html" class="logo">Gustavo<span>Consignani</span></a>
@@ -92,7 +109,7 @@
             <nav>
                 <ul class="nav-menu">
                     <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="sobre.html" class="nav-link active">Sobre</a></li>
+                    <li><a href="sobre.html" class="nav-link active">Sobre</a></li> <!-- O link "Sobre" está marcado como ativo. -->
                     <li><a href="planos.html" class="nav-link">Planos</a></li>
                     <li><a href="faq.html" class="nav-link">Dúvidas</a></li>
                     <li><a href="login.html" class="nav-link nav-link-login">Área do Aluno</a></li>
@@ -101,6 +118,7 @@
         </div>
     </header>
 
+    <!-- Cabeçalho simples da página. -->
     <div class="page-header">
         <div class="container">
             <h1>Experiência & <span style="color:var(--primary-color)">Metodologia</span></h1>
@@ -108,11 +126,14 @@
         </div>
     </div>
 
+    <!-- Seção de Biografia -->
     <section class="bio-section container">
         <div class="bio-grid">
+            <!-- Coluna da imagem -->
             <div class="bio-img">
                 <img src="assets/img/gustavo.jpg" alt="Gustavo Consignani">
             </div>
+            <!-- Coluna do texto -->
             <div class="bio-text">
                 <h4>Sobre Mim</h4>
                 <h2>Gustavo Consignani</h2>
@@ -121,12 +142,14 @@
                 
                 <p>Minha principal área de atuação é a <strong>estética</strong>, mas sempre em harmonia com a saúde. Acredito que um corpo bonito não precisa (e não deve) custar o seu bem-estar. Meu foco é compartilhar estratégias que permitam a você, independente do nível, conquistar seus objetivos de forma eficiente.</p>
                 
+                <!-- Caixa de citação -->
                 <div class="quote-box">
                     "Acredito que a jornada de cada pessoa é única. Meu compromisso é estar ao seu lado em cada etapa, oferecendo não só um treino, mas a motivação e a estratégia certa para resultados duradouros."
                 </div>
 
                 <p>Meu propósito é simples: fazer com que você se sinta mais forte, confiante e satisfeito ao se olhar no espelho.</p>
 
+                <!-- Pequenos dados (Alunos, Personalizado) -->
                 <div style="display: flex; gap: 30px; margin-top: 30px;">
                     <div>
                         <span style="font-size: 1.5rem; font-weight: 800; color: white;">+200</span>
@@ -141,15 +164,19 @@
         </div>
     </section>
 
+    <!-- Seção da Metodologia -->
     <section class="method-section">
         <div class="container">
+            <!-- Cabeçalho da seção -->
             <div class="method-header">
                 <h2>Como Funciona a Consultoria?</h2>
                 <p>Entenda a jornada desde o momento da compra até o seu primeiro treino.</p>
             </div>
 
+            <!-- Container dos passos -->
             <div class="steps-container">
                 
+                <!-- Cartão do Passo 1 -->
                 <div class="step-card">
                     <span class="step-num">01</span>
                     <span class="step-icon">🔐</span>
@@ -157,6 +184,7 @@
                     <p class="step-desc">Tudo começa com seu cadastro seguro aqui no site. Ele é necessário para liberar a compra e garantir que você tenha acesso à área de membros futuramente.</p>
                 </div>
 
+                <!-- Cartão do Passo 2 -->
                 <div class="step-card">
                     <span class="step-num">02</span>
                     <span class="step-icon">📋</span>
@@ -164,6 +192,7 @@
                     <p class="step-desc">Após o pagamento, você preenche a ficha técnica e envia suas fotos. É aqui que eu entendo suas lesões, rotina e o que você realmente quer mudar no seu corpo.</p>
                 </div>
 
+                <!-- Cartão do Passo 3 -->
                 <div class="step-card">
                     <span class="step-num">03</span>
                     <span class="step-icon">💬</span>
@@ -171,6 +200,7 @@
                     <p class="step-desc">Enviou a ficha? Você será direcionado para o meu WhatsApp pessoal. Lá teremos um canal direto para tirar dúvidas durante todo o acompanhamento.</p>
                 </div>
 
+                <!-- Cartão do Passo 4 -->
                 <div class="step-card">
                     <span class="step-num">04</span>
                     <span class="step-icon">📱</span>
@@ -180,12 +210,14 @@
 
             </div>
 
+            <!-- Botão de Ação (Call-to-Action) -->
             <div style="text-align: center; margin-top: 60px;">
                 <a href="planos.html" class="btn btn-primary" style="padding: 15px 40px;">Começar Minha Jornada</a>
             </div>
         </div>
     </section>
 
+    <!-- Inclusão do script JavaScript principal, o mesmo do index.html -->
     <script src="assets/js/main.js"></script>
 </body>
 </html>
