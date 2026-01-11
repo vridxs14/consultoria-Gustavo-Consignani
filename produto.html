@@ -12,12 +12,11 @@
     <style>
         .product-section { padding: 140px 20px 80px; max-width: 1100px; margin: 0 auto; }
         
-        /* Layout estilo E-commerce (Nike) */
         .product-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 60px;
-            align-items: center;
+            align-items: start; /* Mudado para start para alinhar topo */
         }
 
         /* Coluna da Imagem */
@@ -26,9 +25,9 @@
             border-radius: 20px;
             overflow: hidden;
             border: 1px solid #333;
-            height: 500px;
+            height: 600px; /* Aumentei um pouco para acompanhar o texto maior */
             display: flex; align-items: center; justify-content: center;
-            position: relative;
+            position: sticky; top: 120px; /* A imagem segue o scroll */
         }
         .product-image img {
             width: 100%; height: 100%; object-fit: cover; opacity: 0.8;
@@ -45,8 +44,7 @@
             display: flex; gap: 15px; align-items: baseline;
         }
         .price-highlight { color: white; font-weight: 700; }
-        .price-old { text-decoration: line-through; color: #666; font-size: 1.2rem; }
-
+        
         .product-desc { color: #ccc; line-height: 1.6; margin-bottom: 30px; font-size: 1rem; }
 
         .benefits-list { list-style: none; margin-bottom: 40px; }
@@ -62,11 +60,47 @@
         }
         .btn-buy:hover { background: var(--primary-color); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(204, 255, 0, 0.2); }
 
-        .secure-badge { text-align: center; margin-top: 15px; color: #666; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .secure-badge { text-align: center; margin-top: 15px; margin-bottom: 30px; color: #666; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; gap: 5px; }
+
+        /* ESTILO DA POLÍTICA (NOVO) */
+        .legal-accordion {
+            border-top: 1px solid #333;
+            margin-top: 20px;
+        }
+        
+        details {
+            padding: 15px 0;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        summary {
+            list-style: none;
+            font-weight: 700;
+            color: #888;
+            font-size: 0.9rem;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        summary:hover { color: white; }
+        summary::after { content: '+'; font-size: 1.2rem; }
+        details[open] summary::after { content: '-'; color: var(--primary-color); }
+        details[open] summary { color: var(--primary-color); }
+
+        .legal-text {
+            font-size: 0.8rem;
+            color: #999;
+            line-height: 1.6;
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+            text-align: justify;
+        }
+        .legal-text strong { color: #ccc; display: block; margin-top: 10px; margin-bottom: 2px; }
 
         @media (max-width: 900px) {
             .product-grid { grid-template-columns: 1fr; }
-            .product-image { height: 300px; }
+            .product-image { height: 300px; position: static; }
             .product-section { padding-top: 100px; }
         }
     </style>
@@ -103,9 +137,7 @@
                     <span style="font-size: 0.9rem; color: #888; font-weight: normal;">/ total do período</span>
                 </div>
 
-                <p id="p-desc" class="product-desc">
-                    Descrição detalhada do plano aqui...
-                </p>
+                <p id="p-desc" class="product-desc">Descrição...</p>
 
                 <ul class="benefits-list">
                     <li>Acesso ao App MFIT Personal</li>
@@ -114,13 +146,36 @@
                     <li id="p-extra">Bônus Exclusivo</li>
                 </ul>
 
-                <a id="btn-action" href="#" class="btn-buy">
-                    Adicionar ao Carrinho
-                </a>
+                <a id="btn-action" href="#" class="btn-buy">Adicionar ao Carrinho</a>
                 
                 <div class="secure-badge">
                     🔒 Compra Segura • Acesso Imediato ao Cadastro
                 </div>
+
+                <div class="legal-accordion">
+                    <details>
+                        <summary>POLÍTICA DE DEVOLUÇÃO E REEMBOLSO</summary>
+                        <div class="legal-text">
+                            <p>Ao contratar nossos serviços, você declara estar ciente dos termos abaixo:</p>
+
+                            <strong>1. Reserva de Vaga e Início do Serviço</strong>
+                            A conclusão da compra garante sua vaga no atendimento individualizado e configura o início imediato da prestação de serviço (reserva de estrutura), independentemente do envio da anamnese.
+
+                            <strong>2. Direito de Arrependimento (7 Dias)</strong>
+                            Conforme o Artigo 49 do CDC, você tem direito ao arrependimento no prazo de 7 (sete) dias corridos após a confirmação do pagamento. Após este prazo, o direito de arrependimento é encerrado.
+
+                            <strong>3. Critério Técnico e Subjetividade</strong>
+                            Não realizamos reembolso caso o cliente "não goste" do treino prescrito. A consultoria é um serviço técnico elaborado com critérios profissionais baseados na sua necessidade fisiológica, não estando sujeita à concordância subjetiva.
+
+                            <strong>4. Planos de Longo Prazo</strong>
+                            Não há reembolso proporcional (pro-rata) para planos Trimestrais ou Semestrais em caso de desistência após os 7 dias iniciais. Uma vez enviadas as informações, toda a periodização é estruturada.
+
+                            <strong>5. Prazo de Validade</strong>
+                            O protocolo tem validade de uso (para envio da anamnese) por até 180 dias após a compra.
+                        </div>
+                    </details>
+                </div>
+
             </div>
         </div>
     </section>
@@ -128,7 +183,6 @@
     <script type="module">
         import { auth } from './assets/js/firebase-config.js';
         
-        // DADOS DOS PRODUTOS (CÓPYWRITING)
         const products = {
             'mensal': {
                 title: 'Plano Mensal (Start)',
@@ -150,7 +204,6 @@
             }
         };
 
-        // PEGAR O PLANO DA URL (?plano=mensal)
         const urlParams = new URLSearchParams(window.location.search);
         const planKey = urlParams.get('plano');
         const product = products[planKey];
@@ -159,27 +212,20 @@
         const loading = document.getElementById('loading');
 
         if (product) {
-            // Preenche a tela
             document.getElementById('p-title').textContent = product.title;
             document.getElementById('p-price').textContent = product.price;
             document.getElementById('p-desc').textContent = product.desc;
             document.getElementById('p-extra').textContent = product.extra;
 
-            // Configura o botão
             const btn = document.getElementById('btn-action');
-            
-            // O botão leva para o checkout, mas manda um aviso de "compra"
-            // Se não estiver logado, o auth.js vai capturar isso
             btn.href = `checkout.html?plano=${planKey}`; 
             
-            // Lógica de clique: Verifica login ANTES de ir
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
                 const user = auth.currentUser;
                 if (user) {
                     window.location.href = `checkout.html?plano=${planKey}`;
                 } else {
-                    // Manda para login com aviso amigável
                     window.location.href = `login.html?redirect=checkout&plano=${planKey}&msg=nova_compra`;
                 }
             });
@@ -187,7 +233,7 @@
             loading.style.display = 'none';
             content.style.display = 'grid';
         } else {
-            loading.textContent = "Plano não encontrado. Volte para a Home.";
+            loading.textContent = "Plano não encontrado.";
         }
     </script>
 </body>
