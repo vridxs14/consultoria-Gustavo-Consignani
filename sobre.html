@@ -21,8 +21,8 @@
         .about-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
+            gap: 60px;
+            align-items: start;
             margin-bottom: 80px;
         }
         
@@ -33,32 +33,61 @@
             width: 100%;
             height: auto;
             object-fit: cover;
+            min-height: 450px;
         }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-top: 30px;
-            text-align: center;
-        }
-
-        .stat-card {
-            background: var(--bg-card);
+        .text-highlight {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 20px;
+            margin: 30px 0;
+            font-style: italic;
+            color: #ddd;
+            background: rgba(255,255,255,0.05);
             padding: 20px;
-            border-radius: 8px;
-            border-bottom: 3px solid var(--primary-color);
+            border-radius: 0 10px 10px 0;
         }
 
-        .stat-number {
-            display: block;
-            font-size: 2rem;
+        /* TIMELINE DO PROCESSO */
+        .process-section {
+            background-color: #111;
+            padding: 80px 20px;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .process-step {
+            position: relative;
+            padding: 20px;
+            background: var(--bg-card);
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.3s;
+        }
+
+        .process-step:hover { transform: translateY(-5px); border-color: var(--primary-color); }
+
+        .step-number {
+            font-size: 3rem;
             font-weight: 800;
-            color: var(--primary-color);
+            color: rgba(255,255,255,0.1);
+            position: absolute;
+            top: 10px;
+            right: 20px;
         }
 
-        @media (max-width: 768px) {
+        .step-title { color: var(--primary-color); font-weight: 700; margin-bottom: 10px; font-size: 1.1rem; }
+        .step-desc { font-size: 0.9rem; color: #ccc; line-height: 1.6; }
+
+        @media (max-width: 900px) {
             .about-content { grid-template-columns: 1fr; }
+            .about-img img { min-height: 300px; }
         }
     </style>
 </head>
@@ -81,37 +110,67 @@
     </header>
 
     <section class="about-hero container">
-        <h1>Treino sem <span style="color:var(--primary-color)">Adivinhação</span></h1>
-        <p>A diferença entre esforço e resultado é a estratégia.</p>
+        <h1>Por trás do <span style="color:var(--primary-color)">Protocolo</span></h1>
+        <p>Conheça a metodologia que vai transformar seu corpo sem sacrificar sua saúde.</p>
     </section>
 
     <section class="container">
         <div class="about-content">
             <div class="about-img">
-                <img src="assets/img/gustavo.jpg" alt="Foto Gustavo Consignani" style="min-height: 400px; background: #333;"> 
+                <img src="assets/img/gustavo.jpg" alt="Gustavo Consignani" style="background-color: #222;">
             </div>
+            
             <div class="about-text">
                 <h2>Olá, sou Gustavo Consignani</h2>
-                <p>Especialista em treinamento esportivo e graduado em Educação Física. Minha missão é simples: remover a confusão da sua rotina.</p>
-                <br>
-                <p>Eu vejo muitas pessoas treinando há meses sem ver mudança no espelho. O problema não é o esforço, é a falta de direção. Você chega na academia e não sabe a carga, não sabe a ordem, não sabe o "porquê".</p>
-                <br>
-                <p>Com mais de 5 anos de experiência, desenvolvi uma metodologia que entrega um mapa pronto. Você executa, o resultado vem.</p>
+                <h4 style="color: #888; margin-bottom: 20px;">Personal Trainer & Especialista em Treinamento</h4>
                 
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <span class="stat-number">+200</span>
-                        <span>Alunos Transformados</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-number">+5</span>
-                        <span>Anos de Experiência</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-number">100%</span>
-                        <span>Personalizado</span>
-                    </div>
+                <p>Muitas pessoas chegam até mim frustradas. Treinam há meses, fazem dieta, mas o corpo não muda. O problema quase nunca é falta de esforço. É falta de <strong>estratégia</strong>.</p>
+                
+                <div class="text-highlight">
+                    "Eu não uso robôs para montar seu treino. É por isso que peço <strong>5 dias úteis</strong>. Eu sento, analiso sua anatomia e sua rotina para desenhar um mapa seguro para você."
                 </div>
+
+                <h3>Minha Metodologia</h3>
+                <p>O foco é remover a adivinhação. Todo o protocolo é desenvolvido manualmente por mim, de forma personalizada e exclusiva para o seu objetivo.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="process-section">
+        <div class="container">
+            <h2 style="text-align: center;">Como Funciona a Consultoria</h2>
+            <p style="text-align: center; color: #888;">Do cadastro à entrega do seu treino em 4 passos.</p>
+
+            <div class="process-grid">
+                
+                <div class="process-step">
+                    <span class="step-number">01</span>
+                    <h3 class="step-title">Cadastro & Compra</h3>
+                    <p class="step-desc">Antes de realizar o pagamento, você cria sua conta segura no site. Esse cadastro é fundamental para organizar seu acesso desde o primeiro momento[cite: 3, 4].</p>
+                </div>
+
+                <div class="process-step">
+                    <span class="step-number">02</span>
+                    <h3 class="step-title">Anamnese & Fotos</h3>
+                    <p class="step-desc">Após confirmar a compra, você preenche a anamnese e envia suas fotos. É aqui que entendo seu histórico, lesões e rotina para montar sua estratégia[cite: 7, 8].</p>
+                </div>
+
+                <div class="process-step">
+                    <span class="step-number">03</span>
+                    <h3 class="step-title">Suporte via WhatsApp</h3>
+                    <p class="step-desc">Enviou a ficha? Você será direcionado para o meu WhatsApp. Lá você tem acesso direto a mim para tirar dúvidas durante todo o acompanhamento[cite: 10, 11].</p>
+                </div>
+
+                <div class="process-step">
+                    <span class="step-number">04</span>
+                    <h3 class="step-title">Entrega no App MFIT</h3>
+                    <p class="step-desc">Baixe o aplicativo <strong>MFIT Personal</strong>. Assim que eu finalizar a criação manual do seu treino, ele aparecerá lá e você receberá um aviso por e-mail[cite: 14, 15].</p>
+                </div>
+
+            </div>
+
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="planos.html" class="btn btn-primary">Começar Agora</a>
             </div>
         </div>
     </section>
