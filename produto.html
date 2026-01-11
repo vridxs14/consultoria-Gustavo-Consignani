@@ -3,90 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhes do Plano | Gustavo Consignani</title>
+    <title>Finalizar Compra | Gustavo Consignani</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/components.css">
 
     <style>
-        .product-section { padding: 140px 20px 80px; max-width: 1100px; margin: 0 auto; }
+        .checkout-section { padding: 120px 20px; text-align: center; max-width: 600px; margin: 0 auto; }
+        .checkout-card { 
+            background: var(--bg-card); 
+            padding: 40px; 
+            border-radius: 10px; 
+            border: 1px solid rgba(89, 60, 204, 0.3); /* Borda Roxa Sutil */
+            box-shadow: 0 0 30px rgba(89, 60, 204, 0.1);
+        }
+        .plan-summary { 
+            margin: 30px 0; 
+            padding: 20px; 
+            background: #050505; 
+            border-radius: 5px; 
+            border-left: 4px solid var(--primary-color); 
+            text-align: left; 
+        }
+        .price-tag { font-size: 1.5rem; color: var(--primary-color); font-weight: bold; float: right; }
+        #loading-msg { font-size: 1.2rem; color: #888; }
+        .hidden { display: none; }
         
-        .product-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: start;
-        }
-
-        /* Coluna da Imagem */
-        .product-image {
-            background: #111;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid #333;
-            height: 600px;
-            display: flex; align-items: center; justify-content: center;
-            position: sticky; top: 120px;
-        }
-        .product-image img {
-            width: 100%; height: 100%; object-fit: cover; opacity: 0.8;
-            transition: 0.5s;
-        }
-        .product-image:hover img { transform: scale(1.05); opacity: 1; }
-
-        /* Coluna de Detalhes */
-        .product-info h1 { font-size: 2.5rem; margin-bottom: 10px; line-height: 1.1; }
-        .product-category { color: var(--primary-color); text-transform: uppercase; font-weight: bold; letter-spacing: 2px; font-size: 0.9rem; margin-bottom: 20px; display: block; }
-        
-        .product-price { 
-            font-size: 2rem; font-weight: 300; margin: 20px 0; border-bottom: 1px solid #333; padding-bottom: 20px; 
-            display: flex; gap: 15px; align-items: baseline;
-        }
-        .price-highlight { color: white; font-weight: 700; }
-        
-        .product-desc { color: #ccc; line-height: 1.6; margin-bottom: 30px; font-size: 1rem; }
-
-        .benefits-list { list-style: none; margin-bottom: 40px; }
-        .benefits-list li { margin-bottom: 10px; display: flex; align-items: center; color: #ddd; }
-        .benefits-list li::before { content: '✓'; color: var(--primary-color); margin-right: 10px; font-weight: bold; }
-
-        .btn-buy {
-            background: white; color: black; width: 100%; padding: 20px; 
-            font-weight: 800; text-transform: uppercase; border-radius: 50px; 
-            border: none; cursor: pointer; font-size: 1.1rem; transition: 0.3s;
-            display: block; text-align: center; text-decoration: none;
-        }
-        .btn-buy:hover { background: var(--primary-color); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(204, 255, 0, 0.2); }
-
-        .secure-badge { text-align: center; margin-top: 15px; margin-bottom: 30px; color: #666; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; gap: 5px; }
-
-        /* ESTILO DA POLÍTICA */
-        .legal-accordion {
-            border-top: 1px solid #333;
-            margin-top: 20px;
-        }
-        details { padding: 15px 0; cursor: pointer; transition: 0.3s; }
-        summary {
-            list-style: none; font-weight: 700; color: #888; font-size: 0.9rem;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        summary:hover { color: white; }
-        summary::after { content: '+'; font-size: 1.2rem; }
-        details[open] summary::after { content: '-'; color: var(--primary-color); }
-        details[open] summary { color: var(--primary-color); }
-
-        .legal-text {
-            font-size: 0.8rem; color: #999; line-height: 1.6; margin-top: 15px; padding: 15px;
-            background: rgba(255,255,255,0.03); border-radius: 8px; text-align: justify;
-        }
-        .legal-text strong { color: #ccc; display: block; margin-top: 10px; margin-bottom: 2px; }
-
-        @media (max-width: 900px) {
-            .product-grid { grid-template-columns: 1fr; }
-            .product-image { height: 300px; position: static; }
-            .product-section { padding-top: 100px; }
-        }
+        .user-info { margin-bottom: 30px; text-align: left; border-bottom: 1px solid #222; padding-bottom: 15px; }
+        .user-info p { color: #ccc; margin-bottom: 5px; }
+        .user-info strong { color: white; }
     </style>
 </head>
 <body>
@@ -94,137 +40,99 @@
     <header class="header">
         <div class="container">
             <a href="index.html" class="logo">Gustavo<span>Consignani</span></a>
-            <div class="menu-toggle" id="mobile-menu">&#9776;</div>
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="planos.html" class="nav-link">&larr; Voltar aos Planos</a></li>
-                </ul>
-            </nav>
         </div>
     </header>
 
-    <section class="product-section">
-        <div id="loading" style="text-align: center; padding: 50px;">Carregando detalhes...</div>
-        
-        <div id="product-content" class="product-grid" style="display: none;">
+    <section class="checkout-section">
+        <div id="loading-check">
+            <p id="loading-msg">Carregando pedido...</p>
+        </div>
+
+        <div id="checkout-content" class="checkout-card hidden">
+            <h1>Resumo do Pedido</h1>
+            <p style="color: #ccc;">Você está a um passo de transformar seu corpo.</p>
+
+            <div class="plan-summary">
+                <span id="plan-name" style="font-weight: 700; color: white;">Plano Selecionado</span>
+                <span id="plan-price" class="price-tag">R$ 0,00</span>
+                <div style="clear: both; padding-top: 10px; font-size: 0.9rem; color: #888;" id="plan-desc">Detalhes...</div>
+            </div>
+
+            <div class="user-info">
+                <p><strong>Aluno:</strong> <span id="user-email">...</span></p>
+                <p style="font-size: 0.8rem; color: #666;">Conta vinculada para acesso ao App</p>
+            </div>
+
+            <a id="btn-pay" href="#" class="btn btn-primary" style="width: 100%; display: block;">
+                FINALIZAR INSCRIÇÃO
+            </a>
             
-            <div class="product-image">
-                <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1470&auto=format&fit=crop" alt="Consultoria Fitness">
-            </div>
-
-            <div class="product-info">
-                <span class="product-category">Consultoria Online</span>
-                <h1 id="p-title">Nome do Plano</h1>
-                
-                <div class="product-price">
-                    <span id="p-price" class="price-highlight">R$ 00,00</span>
-                    <span style="font-size: 0.9rem; color: #888; font-weight: normal;">/ total do período</span>
-                </div>
-
-                <p id="p-desc" class="product-desc">Descrição...</p>
-
-                <ul class="benefits-list">
-                    <li>Acesso ao App MFIT Personal</li>
-                    <li>Treino Individualizado (Anamnese)</li>
-                    <li>Suporte via WhatsApp</li>
-                    <li id="p-extra">Bônus Exclusivo</li>
-                </ul>
-
-                <a id="btn-action" href="#" class="btn-buy">Adicionar ao Carrinho</a>
-                
-                <div class="secure-badge">
-                    🔒 Compra Segura • Acesso Imediato ao Cadastro
-                </div>
-
-                <div class="legal-accordion">
-                    <details>
-                        <summary>POLÍTICA DE DEVOLUÇÃO E REEMBOLSO</summary>
-                        <div class="legal-text">
-                            <p>Ao contratar nossos serviços, você declara estar ciente dos termos abaixo:</p>
-
-                            <strong>1. Reserva de Vaga e Início do Serviço</strong>
-                            A conclusão da compra garante sua vaga no atendimento individualizado e configura o início imediato da prestação de serviço (reserva de estrutura), independentemente do envio da anamnese.
-
-                            <strong>2. Direito de Arrependimento (7 Dias)</strong>
-                            Conforme o Artigo 49 do CDC, você tem direito ao arrependimento no prazo de 7 (sete) dias corridos após a confirmação do pagamento. Após este prazo, o direito de arrependimento é encerrado.
-
-                            <strong>3. Critério Técnico</strong>
-                            Não realizamos reembolso caso o cliente "não goste" do treino prescrito. A consultoria é um serviço técnico baseado na sua necessidade fisiológica, não estando sujeita à concordância subjetiva.
-
-                            <strong>4. Cancelamento durante a vigência</strong>
-                            Não realizamos reembolso proporcional (pro-rata) caso o cliente desista ao longo da consultoria. Uma vez enviadas as informações, toda a periodização é estruturada.
-
-                            <strong>5. Prazo de Validade</strong>
-                            O protocolo deste plano tem validade de uso (para envio da anamnese e execução) por até <span id="legal-days" style="color:white; font-weight:bold;">XX dias</span> após a compra.
-                        </div>
-                    </details>
-                </div>
-
-            </div>
+            <p style="margin-top: 15px; font-size: 0.8rem; color: #666;">
+                🔒 Ambiente de teste (Simulação de Pagamento)
+            </p>
         </div>
     </section>
 
     <script type="module">
         import { auth } from './assets/js/firebase-config.js';
-        
-        const products = {
-            'mensal': {
-                title: 'Plano Mensal',
-                price: 'R$ 129,97',
-                desc: 'O ponto de partida ideal. Você recebe um protocolo de treino completo válido por 30 dias.',
-                extra: 'Renovação sem fidelidade',
-                validity: '30 dias' // Adicionado Validade
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const selectedPlan = urlParams.get('plano'); 
+
+        // ============================================================
+        // CONFIGURAÇÃO DE TESTE (O PULO DO GATO) 🐈
+        // Todos os links apontam para 'anamnese.html' para simular sucesso
+        // ============================================================
+        const plansData = {
+            'mensal': { 
+                name: 'Consultoria Mensal', 
+                price: 'R$ 129,97', 
+                link: 'anamnese.html', 
+                desc: 'Renovação mensal sem fidelidade.' 
             },
-            'trimestral': {
-                title: 'Plano Trimestral',
-                price: 'R$ 299,90',
-                desc: 'O ciclo completo de transformação. Em 12 semanas passamos por fases de adaptação, força e hipertrofia.',
-                extra: 'Economia de R$ 90,00',
-                validity: '90 dias' // Adicionado Validade
+            'trimestral': { 
+                name: 'Consultoria Trimestral', 
+                price: 'R$ 299,70', 
+                link: 'anamnese.html', 
+                desc: 'Plano de 3 meses (Equivalente a R$ 99,90/mês).' 
             },
-            'semestral': {
-                title: 'Plano Semestral',
-                price: 'R$ 539,40',
-                desc: 'Compromisso com o estilo de vida. O melhor custo-benefício para quem não quer parar.',
-                extra: 'Grupo VIP + Melhor Valor',
-                validity: '180 dias' // Adicionado Validade
+            'semestral': { 
+                name: 'Consultoria Semestral', 
+                price: 'R$ 539,40', 
+                link: 'anamnese.html', 
+                desc: 'Plano de 6 meses (Melhor valor).' 
             }
         };
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const planKey = urlParams.get('plano');
-        const product = products[planKey];
+        const loadingDiv = document.getElementById('loading-check');
+        const contentDiv = document.getElementById('checkout-content');
 
-        const content = document.getElementById('product-content');
-        const loading = document.getElementById('loading');
-
-        if (product) {
-            document.getElementById('p-title').textContent = product.title;
-            document.getElementById('p-price').textContent = product.price;
-            document.getElementById('p-desc').textContent = product.desc;
-            document.getElementById('p-extra').textContent = product.extra;
-            
-            // ATUALIZAÇÃO DA VALIDADE JURÍDICA
-            document.getElementById('legal-days').textContent = product.validity;
-
-            const btn = document.getElementById('btn-action');
-            btn.href = `checkout.html?plano=${planKey}`; 
-            
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const user = auth.currentUser;
-                if (user) {
-                    window.location.href = `checkout.html?plano=${planKey}`;
-                } else {
-                    window.location.href = `login.html?redirect=checkout&plano=${planKey}&msg=nova_compra`;
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // 1. Logado: Carrega os dados
+                if (!selectedPlan || !plansData[selectedPlan]) {
+                    alert("Plano não selecionado.");
+                    window.location.href = 'planos.html';
+                    return;
                 }
-            });
 
-            loading.style.display = 'none';
-            content.style.display = 'grid';
-        } else {
-            loading.textContent = "Plano não encontrado.";
-        }
+                document.getElementById('plan-name').textContent = plansData[selectedPlan].name;
+                document.getElementById('plan-price').textContent = plansData[selectedPlan].price;
+                document.getElementById('plan-desc').textContent = plansData[selectedPlan].desc;
+                document.getElementById('user-email').textContent = user.email;
+                
+                // APLICA O LINK DE "PULO"
+                document.getElementById('btn-pay').href = plansData[selectedPlan].link;
+
+                loadingDiv.style.display = 'none';
+                contentDiv.classList.remove('hidden');
+
+            } else {
+                // 2. Não Logado: Manda pro Login e volta pra cá depois
+                window.location.href = `login.html?redirect=checkout&plano=${selectedPlan}`;
+            }
+        });
     </script>
 </body>
 </html>
