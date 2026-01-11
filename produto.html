@@ -16,7 +16,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 60px;
-            align-items: start; /* Mudado para start para alinhar topo */
+            align-items: start;
         }
 
         /* Coluna da Imagem */
@@ -25,9 +25,9 @@
             border-radius: 20px;
             overflow: hidden;
             border: 1px solid #333;
-            height: 600px; /* Aumentei um pouco para acompanhar o texto maior */
+            height: 600px;
             display: flex; align-items: center; justify-content: center;
-            position: sticky; top: 120px; /* A imagem segue o scroll */
+            position: sticky; top: 120px;
         }
         .product-image img {
             width: 100%; height: 100%; object-fit: cover; opacity: 0.8;
@@ -51,7 +51,6 @@
         .benefits-list li { margin-bottom: 10px; display: flex; align-items: center; color: #ddd; }
         .benefits-list li::before { content: '✓'; color: var(--primary-color); margin-right: 10px; font-weight: bold; }
 
-        /* Botão de Compra */
         .btn-buy {
             background: white; color: black; width: 100%; padding: 20px; 
             font-weight: 800; text-transform: uppercase; border-radius: 50px; 
@@ -62,23 +61,14 @@
 
         .secure-badge { text-align: center; margin-top: 15px; margin-bottom: 30px; color: #666; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; gap: 5px; }
 
-        /* ESTILO DA POLÍTICA (NOVO) */
+        /* ESTILO DA POLÍTICA */
         .legal-accordion {
             border-top: 1px solid #333;
             margin-top: 20px;
         }
-        
-        details {
-            padding: 15px 0;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        
+        details { padding: 15px 0; cursor: pointer; transition: 0.3s; }
         summary {
-            list-style: none;
-            font-weight: 700;
-            color: #888;
-            font-size: 0.9rem;
+            list-style: none; font-weight: 700; color: #888; font-size: 0.9rem;
             display: flex; justify-content: space-between; align-items: center;
         }
         summary:hover { color: white; }
@@ -87,14 +77,8 @@
         details[open] summary { color: var(--primary-color); }
 
         .legal-text {
-            font-size: 0.8rem;
-            color: #999;
-            line-height: 1.6;
-            margin-top: 15px;
-            padding: 15px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 8px;
-            text-align: justify;
+            font-size: 0.8rem; color: #999; line-height: 1.6; margin-top: 15px; padding: 15px;
+            background: rgba(255,255,255,0.03); border-radius: 8px; text-align: justify;
         }
         .legal-text strong { color: #ccc; display: block; margin-top: 10px; margin-bottom: 2px; }
 
@@ -164,14 +148,14 @@
                             <strong>2. Direito de Arrependimento (7 Dias)</strong>
                             Conforme o Artigo 49 do CDC, você tem direito ao arrependimento no prazo de 7 (sete) dias corridos após a confirmação do pagamento. Após este prazo, o direito de arrependimento é encerrado.
 
-                            <strong>3. Critério Técnico e Subjetividade</strong>
-                            Não realizamos reembolso caso o cliente "não goste" do treino prescrito. A consultoria é um serviço técnico elaborado com critérios profissionais baseados na sua necessidade fisiológica, não estando sujeita à concordância subjetiva.
+                            <strong>3. Critério Técnico</strong>
+                            Não realizamos reembolso caso o cliente "não goste" do treino prescrito. A consultoria é um serviço técnico baseado na sua necessidade fisiológica, não estando sujeita à concordância subjetiva.
 
-                            <strong>4. Planos de Longo Prazo</strong>
-                            Não há reembolso proporcional (pro-rata) para planos Trimestrais ou Semestrais em caso de desistência após os 7 dias iniciais. Uma vez enviadas as informações, toda a periodização é estruturada.
+                            <strong>4. Cancelamento durante a vigência</strong>
+                            Não realizamos reembolso proporcional (pro-rata) caso o cliente desista ao longo da consultoria. Uma vez enviadas as informações, toda a periodização é estruturada.
 
                             <strong>5. Prazo de Validade</strong>
-                            O protocolo tem validade de uso (para envio da anamnese) por até 180 dias após a compra.
+                            O protocolo deste plano tem validade de uso (para envio da anamnese e execução) por até <span id="legal-days" style="color:white; font-weight:bold;">XX dias</span> após a compra.
                         </div>
                     </details>
                 </div>
@@ -187,20 +171,23 @@
             'mensal': {
                 title: 'Plano Mensal (Start)',
                 price: 'R$ 129,97',
-                desc: 'O ponto de partida ideal. Você recebe um protocolo de treino completo válido por 30 dias. Perfeito para conhecer a metodologia e sentir a diferença de um treino periodizado.',
-                extra: 'Renovação sem fidelidade'
+                desc: 'O ponto de partida ideal. Você recebe um protocolo de treino completo válido por 30 dias.',
+                extra: 'Renovação sem fidelidade',
+                validity: '30 dias' // Adicionado Validade
             },
             'trimestral': {
                 title: 'Plano Trimestral (Evolution)',
                 price: 'R$ 299,90',
-                desc: 'O ciclo completo de transformação. Em 12 semanas passamos por fases de adaptação, força e hipertrofia/definição. É aqui que o corpo muda de verdade.',
-                extra: 'Economia de R$ 90,00'
+                desc: 'O ciclo completo de transformação. Em 12 semanas passamos por fases de adaptação, força e hipertrofia.',
+                extra: 'Economia de R$ 90,00',
+                validity: '90 dias' // Adicionado Validade
             },
             'semestral': {
                 title: 'Plano Semestral (Pro)',
                 price: 'R$ 539,40',
-                desc: 'Compromisso com o estilo de vida. O melhor custo-benefício para quem não quer parar. Inclui ajustes ilimitados e prioridade no suporte.',
-                extra: 'Grupo VIP + Melhor Valor'
+                desc: 'Compromisso com o estilo de vida. O melhor custo-benefício para quem não quer parar.',
+                extra: 'Grupo VIP + Melhor Valor',
+                validity: '180 dias' // Adicionado Validade
             }
         };
 
@@ -216,6 +203,9 @@
             document.getElementById('p-price').textContent = product.price;
             document.getElementById('p-desc').textContent = product.desc;
             document.getElementById('p-extra').textContent = product.extra;
+            
+            // ATUALIZAÇÃO DA VALIDADE JURÍDICA
+            document.getElementById('legal-days').textContent = product.validity;
 
             const btn = document.getElementById('btn-action');
             btn.href = `checkout.html?plano=${planKey}`; 
