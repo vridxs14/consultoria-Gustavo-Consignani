@@ -55,11 +55,26 @@
         const urlParams = new URLSearchParams(window.location.search);
         const selectedPlan = urlParams.get('plano'); // Pega ?plano=mensal da URL
 
-        // CONFIGURAÇÃO DOS SEUS LINKS (COLE SEUS LINKS DO MERCADO PAGO AQUI)
+        // CONFIGURAÇÃO DE TESTE (Links apontando direto para a próxima fase) ADICIONAR DEPOIS OS LINKS DO MERCADDO PAGO.
         const plansData = {
-            'mensal': { name: 'Consultoria Mensal', price: 'R$ 129,97', link: 'SEU_LINK_MERCADO_PAGO_MENSAL', desc: 'Renovação mensal sem fidelidade.' },
-            'trimestral': { name: 'Consultoria Trimestral', price: 'R$ 299,70', link: 'SEU_LINK_MERCADO_PAGO_TRIMESTRAL', desc: 'Plano de 3 meses (Equivalente a R$ 99,90/mês).' },
-            'semestral': { name: 'Consultoria Semestral', price: 'R$ 539,40', link: 'SEU_LINK_MERCADO_PAGO_SEMESTRAL', desc: 'Plano de 6 meses (Melhor valor).' }
+            'mensal': { 
+                name: 'Consultoria Mensal', 
+                price: 'R$ 129,97', 
+                link: 'anamnese.html', // <--- PULO DO GATO AQUI
+                desc: 'Renovação mensal sem fidelidade.' 
+            },
+            'trimestral': { 
+                name: 'Consultoria Trimestral', 
+                price: 'R$ 299,70', 
+                link: 'anamnese.html', // <--- AQUI TAMBÉM
+                desc: 'Plano de 3 meses (Equivalente a R$ 99,90/mês).' 
+            },
+            'semestral': { 
+                name: 'Consultoria Semestral', 
+                price: 'R$ 539,40', 
+                link: 'anamnese.html', // <--- E AQUI
+                desc: 'Plano de 6 meses (Melhor valor).' 
+            }
         };
 
         const loadingDiv = document.getElementById('loading-check');
