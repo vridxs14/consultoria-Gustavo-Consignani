@@ -1,5 +1,6 @@
 // Importa as funções de autenticação do SDK e nossa configuração
 import { auth } from './firebase-config.js';
+import { Logger, EmailValidator, FormValidator } from './utils.js';
 import { 
     signInWithEmailAndPassword, 
     createUserWithEmailAndPassword, 
@@ -37,6 +38,7 @@ if (showRegisterBtn && showLoginBtn) {
 const showError = (message) => {
     authMessage.textContent = message;
     authMessage.style.display = 'block';
+    Logger.warn('Erro de validação exibido ao usuário', { message });
     
     // Ocultar após 5 segundos
     setTimeout(() => {
@@ -55,20 +57,35 @@ if (loginForm) {
         const password = document.getElementById('login-password').value;
         const btn = loginForm.querySelector('button');
 
+        Logger.debug('Tentativa de login', { email: email.replace(/./g, '*').slice(0, 3) + '***' });
+
+        // Validação de email
+        if (!EmailValidator.isValid(email)) {
+            const errorMessage = EmailValidator.getErrorMessage(email);
+            showError(errorMessage);
+            Logger.warn('Email inválido no login', { email });
+            return;
+        }
+
         try {
             btn.textContent = 'Carregando...';
             btn.disabled = true;
 
             await signInWithEmailAndPassword(auth, email, password);
+            Logger.info('Login bem-sucedido', { email });
             // O redirecionamento é tratado pelo onAuthStateChanged abaixo
             
         } catch (error) {
-            console.error("Erro no login:", error.code);
+            Logger.error('Erro no login', { code: error.code, message: error.message });
             btn.textContent = 'Entrar';
             btn.disabled = false;
 
             if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found') {
                 showError('E-mail ou senha incorretos.');
+            } else if (error.code === 'auth/invalid-email') {
+                showError('O formato do e-mail não é válido.');
+            } else if (error.code === 'auth/too-many-requests') {
+                showError('Muitas tentativas. Tente novamente mais tarde.');
             } else {
                 showError('Ocorreu um erro. Tente novamente.');
             }
@@ -88,13 +105,19 @@ if (registerForm) {
         const confirmPass = document.getElementById('reg-confirm').value;
         const btn = registerForm.querySelector('button');
 
-        if (password !== confirmPass) {
-            showError('As senhas não coincidem.');
-            return;
-        }
+        Logger.debug('Tentativa de cadastro', { email: email.replace(/./g, '*').slice(0, 3) + '***' });
 
-        if (password.length < 6) {
-            showError('A senha deve ter pelo menos 6 caracteres.');
+        // Validação completa do formulário
+        const validation = FormValidator.validateForm({
+            email: email,
+            password: password,
+            confirmPassword: confirmPass
+        });
+
+        if (!validation.isValid) {
+            const firstError = Object.values(validation.errors)[0];
+            showError(firstError);
+            Logger.warn('Validação de cadastro falhou', { errors: validation.errors });
             return;
         }
 
@@ -104,18 +127,23 @@ if (registerForm) {
 
             // Cria o usuário no Firebase Auth
             await createUserWithEmailAndPassword(auth, email, password);
+            Logger.info('Cadastro bem-sucedido', { email });
             
             // O redirecionamento é automático pelo onAuthStateChanged
             
         } catch (error) {
-            console.error("Erro no cadastro:", error.code);
+            Logger.error('Erro no cadastro', { code: error.code, message: error.message });
             btn.textContent = 'Cadastrar';
             btn.disabled = false;
 
             if (error.code === 'auth/email-already-in-use') {
                 showError('Este e-mail já está cadastrado.');
+            } else if (error.code === 'auth/invalid-email') {
+                showError('O formato do e-mail não é válido.');
+            } else if (error.code === 'auth/weak-password') {
+                showError('A senha é muito fraca. Use uma senha mais forte.');
             } else {
-                showError('Erro ao criar conta: ' + error.message);
+                showError('Erro ao criar conta. Tente novamente.');
             }
         }
     });
@@ -126,7 +154,7 @@ if (registerForm) {
    ========================================= */
 onAuthStateChanged(auth, (user) => {
     if (user) {
-        console.log("Usuário logado:", user.email);
+        Logger.info('Usuário logado com sucesso', { email: user.email });
         
         // Verifica se estamos na página de login
         if (window.location.pathname.includes('login')) {
@@ -138,13 +166,17 @@ onAuthStateChanged(auth, (user) => {
 
             if (redirectPage === 'checkout' && planType) {
                 // Se veio da compra, devolve para a compra
+                Logger.debug('Redirecionando para checkout', { plano: planType });
                 window.location.href = `checkout.html?plano=${planType}`;
             } else {
                 // Se for login normal, vai pro dashboard
+                Logger.debug('Redirecionando para dashboard');
                 window.location.href = 'dashboard.html';
             }
         }
-    } 
+    } else {
+        Logger.debug('Usuário não autenticado');
+    }
     // Se não estiver logado, as páginas protegidas (checkout, dashboard) já têm proteção interna
 });
 /* =========================================
@@ -153,9 +185,11 @@ onAuthStateChanged(auth, (user) => {
 // Expondo a função logout para o escopo global (window) para ser chamada via onclick no HTML
 window.logoutUser = async () => {
     try {
+        Logger.info('Usuário iniciando logout');
         await signOut(auth);
+        Logger.info('Logout bem-sucedido');
         window.location.href = 'index.html';
     } catch (error) {
-        console.error("Erro ao sair:", error);
+        Logger.error('Erro ao fazer logout', { message: error.message });
     }
 };
