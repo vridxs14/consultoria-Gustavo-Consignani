@@ -54,7 +54,6 @@
     <header class="header">
         <div class="container">
             <a href="index.html" class="logo">Gustavo<span>Consignani</span></a>
-            
             <nav>
                 <ul class="nav-menu">
                     <li><a href="index.html" class="nav-link">Voltar ao Site</a></li>
@@ -108,5 +107,43 @@
     </div>
 
     <script type="module" src="assets/js/auth.js"></script>
+
+    <script>
+        // Verifica se o usuário veio da vitrine de produtos tentando comprar
+        const params = new URLSearchParams(window.location.search);
+        
+        if (params.get('msg') === 'nova_compra') {
+            const loginCard = document.querySelector('.login-card');
+            
+            // Cria um card de aviso elegante
+            const alertBox = document.createElement('div');
+            alertBox.style.background = 'rgba(204, 255, 0, 0.1)'; // Fundo levemente verde
+            alertBox.style.border = '1px solid var(--primary-color)';
+            alertBox.style.padding = '15px';
+            alertBox.style.borderRadius = '8px';
+            alertBox.style.marginBottom = '20px';
+            alertBox.style.textAlign = 'left';
+            
+            // Ícone de cadeado e texto explicativo
+            alertBox.innerHTML = `
+                <div style="display:flex; gap:15px; align-items:center;">
+                    <span style="font-size:1.8rem;">🔒</span>
+                    <div>
+                        <strong style="color:var(--primary-color); font-size: 1rem;">Quase lá!</strong>
+                        <div style="font-size:0.85rem; color:#ddd; margin-top:2px;">
+                            Para garantir sua segurança, crie uma conta ou faça login antes do pagamento.
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Insere o aviso logo no topo do card, antes de tudo
+            loginCard.prepend(alertBox);
+
+            // Opcional: Se quiser que já abra na aba de Cadastro direto:
+            // document.getElementById('login-form').classList.add('hidden');
+            // document.getElementById('register-form').classList.remove('hidden');
+        }
+    </script>
 </body>
 </html>
