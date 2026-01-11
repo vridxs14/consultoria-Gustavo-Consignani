@@ -1,4 +1,5 @@
 import { auth, db } from './firebase-config.js';
+import { Logger } from './utils.js';
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
@@ -10,9 +11,10 @@ const loadingOverlay = document.getElementById('loading-overlay');
 // 1. VERIFICAÇÃO DE LOGIN
 onAuthStateChanged(auth, (user) => {
     if (user) {
-        console.log("Usuário logado:", user.email);
+        Logger.info('Usuário acessou página de anamnese', { email: user.email });
         if(userDisplay) userDisplay.textContent = user.email;
     } else {
+        Logger.warn('Acesso negado: usuário não autenticado tentou acessar anamnese');
         window.location.href = 'login.html';
     }
 });
@@ -22,12 +24,15 @@ if (anamneseForm) {
     anamneseForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
+        Logger.debug('Formulário de anamnese submetido');
+        
         // Mostra loading
         loadingOverlay.style.display = 'flex';
 
         const user = auth.currentUser;
         if (!user) {
             alert("Erro: Você precisa estar logado.");
+            Logger.error('Erro: usuário não autenticado ao enviar anamnese');
             loadingOverlay.style.display = 'none';
             return;
         }
@@ -47,9 +52,12 @@ if (anamneseForm) {
             status: "pendente" // Status inicial
         };
 
+        Logger.debug('Dados da anamnese capturados', { nome: fichaData.nome, email: fichaData.email });
+
         try {
             // Salva no Firestore
             await addDoc(collection(db, "anamneses"), fichaData);
+            Logger.info('Anamnese salva com sucesso', { email: fichaData.email });
 
             // SUCESSO! Esconde o loading e mostra mensagem
             loadingOverlay.style.display = 'none';
@@ -81,8 +89,8 @@ if (anamneseForm) {
             `;
 
         } catch (error) {
-            console.error("Erro ao salvar:", error);
-            alert("Erro ao enviar ficha: " + error.message);
+            Logger.error('Erro ao salvar anamnese', { code: error.code, message: error.message });
+            alert("Erro ao enviar ficha. Tente novamente.");
             loadingOverlay.style.display = 'none';
         }
     });
@@ -91,7 +99,9 @@ if (anamneseForm) {
 // 3. LOGOUT
 if (logoutBtn) {
     logoutBtn.addEventListener('click', async () => {
+        Logger.info('Usuário iniciando logout da página de anamnese');
         await signOut(auth);
+        Logger.info('Logout bem-sucedido');
         window.location.href = 'login.html';
     });
 }
