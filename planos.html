@@ -1,6 +1,11 @@
+<!-- 
+  Este é o arquivo HTML para a página de Planos.
+  Aqui são apresentados os diferentes pacotes de consultoria disponíveis.
+-->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <!-- Metadados, título e links para fontes e folhas de estilo, padrão do projeto. -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Planos de Consultoria | Gustavo Consignani</title>
@@ -12,62 +17,91 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/components.css">
 
+    <!-- 
+      CSS específico para a página de planos.
+      Estes estilos definem a aparência dos cartões de preços e da seção como um todo.
+    -->
     <style>
+        /* Estilos para a seção principal da página de planos. */
         .plans-section { padding: 120px 0 80px; text-align: center; }
         .plans-header h1 { font-size: 2.5rem; margin-bottom: 20px; }
         .plans-header p { color: #ccc; margin-bottom: 60px; max-width: 600px; margin-left: auto; margin-right: auto; }
 
+        /* 
+          Grid para os cartões de plano.
+          'display: grid' organiza os planos em uma grade.
+          'repeat(auto-fit, minmax(300px, 1fr))' cria uma grade responsiva: os cartões terão no mínimo 300px de largura
+          e se ajustarão para preencher o espaço disponível, criando novas linhas se necessário.
+        */
         .plans-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            gap: 30px; /* Espaçamento entre os cartões. */
             padding: 0 20px;
         }
 
+        /* Estilização base para cada cartão de plano. */
         .plan-card {
-            background-color: var(--bg-card);
-            border-radius: 15px;
+            background-color: var(--bg-card); /* Cor de fundo do cartão (definida em style.css). */
+            border-radius: 15px; /* Bordas arredondadas. */
             padding: 40px 30px;
             border: 1px solid rgba(255,255,255,0.05);
-            transition: transform 0.3s, border-color 0.3s;
-            position: relative;
-            display: flex; flex-direction: column;
+            transition: transform 0.3s, border-color 0.3s; /* Animação suave. */
+            position: relative; /* Necessário para posicionar o 'badge' (selo). */
+            display: flex; flex-direction: column; /* Organiza o conteúdo do cartão em uma coluna. */
         }
 
-        .plan-card:hover { transform: translateY(-10px); border-color: var(--primary-color); }
+        .plan-card:hover { transform: translateY(-10px); border-color: var(--primary-color); } /* Efeito ao passar o mouse. */
         
-        .plan-card.featured { border: 2px solid var(--primary-color); background: linear-gradient(145deg, #1a1a1a, #0d0d0d); transform: scale(1.05); z-index: 2; }
+        /* Estilo para o plano em destaque. */
+        .plan-card.featured { 
+            border: 2px solid var(--primary-color); 
+            background: linear-gradient(145deg, #1a1a1a, #0d0d0d); 
+            transform: scale(1.05); /* Deixa o cartão um pouco maior. */
+            z-index: 2; /* Garante que ele fique na frente de outros elementos. */
+        }
         .plan-card.featured:hover { transform: scale(1.08); }
 
+        /* Estilo para o selo 'Mais Escolhido'. */
         .badge-popular {
-            position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
-            background-color: var(--primary-color); color: black; font-weight: 800;
-            padding: 5px 20px; border-radius: 20px; font-size: 0.8rem; text-transform: uppercase;
+            position: absolute; top: -15px; left: 50%; transform: translateX(-50%); /* Posiciona o selo no topo e centro do cartão. */
+            background-color: var(--primary-color);
+            color: black;
+            font-weight: 800;
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
         }
 
+        /* Estilos para nome, preço e período do plano. */
         .plan-name { font-size: 1.5rem; color: white; margin-bottom: 15px; font-family: var(--font-primary); }
         .plan-price { font-size: 3rem; font-weight: 800; color: white; margin-bottom: 10px; }
         .plan-price span { font-size: 1rem; color: #888; font-weight: 400; }
         .plan-period { color: #888; font-size: 0.9rem; margin-bottom: 30px; display: block; }
 
-        .plan-features { list-style: none; margin-bottom: 40px; text-align: left; flex-grow: 1; }
+        /* Estilos para a lista de características do plano. */
+        .plan-features { list-style: none; margin-bottom: 40px; text-align: left; flex-grow: 1; /* 'flex-grow: 1' faz a lista ocupar o espaço vertical disponível, alinhando os botões na parte inferior. */ }
         .plan-features li { margin-bottom: 15px; color: #ccc; display: flex; align-items: center; }
-        .plan-features li::before { content: '✓'; color: var(--primary-color); margin-right: 10px; font-weight: bold; }
+        .plan-features li::before { content: '✓'; color: var(--primary-color); margin-right: 10px; font-weight: bold; } /* Adiciona um ícone de 'check' antes de cada item. */
 
+        /* Estilos para os botões de seleção de plano. */
         .btn-plan { width: 100%; padding: 15px; font-weight: 800; text-transform: uppercase; border-radius: 5px; cursor: pointer; transition: 0.3s; text-decoration: none; display: inline-block; }
         .btn-outline { background: transparent; border: 2px solid white; color: white; }
         .btn-outline:hover { background: white; color: black; }
         .btn-fill { background: var(--primary-color); border: none; color: black; }
         .btn-fill:hover { background: white; }
 
+        /* Media query para telas menores (responsividade). */
         @media (max-width: 900px) {
-            .plan-card.featured { transform: scale(1); }
+            .plan-card.featured { transform: scale(1); } /* Remove o zoom do cartão em destaque em telas menores para não ocupar muito espaço. */
             .plan-card.featured:hover { transform: translateY(-10px); }
         }
     </style>
 </head>
 <body>
 
+    <!-- Cabeçalho reutilizado, com o link "Planos" marcado como ativo. -->
     <header class="header">
         <div class="container">
             <a href="index.html" class="logo">Gustavo<span>Consignani</span></a>
@@ -84,14 +118,17 @@
         </div>
     </header>
 
+    <!-- Seção principal da página. -->
     <section class="plans-section container">
         <div class="plans-header">
             <h1>Escolha sua Evolução</h1>
             <p>Planos adaptados ao seu tempo e objetivo. Comece hoje a construir a sua melhor versão.</p>
         </div>
 
+        <!-- Grade que contém os cartões dos planos. -->
         <div class="plans-grid">
             
+            <!-- Cartão do Plano "Start". -->
             <div class="plan-card">
                 <h3 class="plan-name">Start</h3>
                 <div class="plan-price">R$ 129<span>,97</span></div>
@@ -104,9 +141,14 @@
                     <li>Análise de Execução de Movimentos</li>
                 </ul>
 
+                <!-- 
+                  Este link leva para a página 'produto.html', passando uma informação na URL ('?plano=mensal').
+                  Isso é chamado de "query string" e permite que a página de produto saiba qual plano foi selecionado.
+                -->
                 <a href="produto.html?plano=mensal" class="btn-plan btn-outline">Ver Detalhes</a>
             </div>
 
+            <!-- Cartão do Plano "Evolution", em destaque. -->
             <div class="plan-card featured">
                 <div class="badge-popular">Mais Escolhido</div>
                 <h3 class="plan-name">Evolution</h3>
@@ -123,6 +165,7 @@
                 <a href="produto.html?plano=trimestral" class="btn-plan btn-fill">Ver Detalhes</a>
             </div>
 
+            <!-- Cartão do Plano "Pro". -->
             <div class="plan-card">
                 <h3 class="plan-name">Pro</h3>
                 <div class="plan-price">R$ 89<span>,90</span></div>
@@ -141,6 +184,7 @@
         </div>
     </section>
 
+    <!-- Script principal para funcionalidades como o menu móvel. -->
     <script src="assets/js/main.js"></script>
 </body>
 </html>

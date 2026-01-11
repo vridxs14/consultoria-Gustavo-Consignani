@@ -1,32 +1,62 @@
+<!-- 
+  Este é um arquivo HTML, a linguagem de marcação padrão para criar páginas da web.
+  Ele define a estrutura e o conteúdo de uma página.
+-->
 <!DOCTYPE html>
+<!-- A tag <html> é o elemento raiz de uma página HTML. O atributo "lang" define o idioma da página, que neste caso é português do Brasil. -->
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gustavo Consignani | Consultoria Online</title>
+    <!-- 
+      A tag <head> contém metadados sobre a página, como o título, a codificação de caracteres,
+      e links para folhas de estilo (CSS) e fontes.
+    -->
+    <meta charset="UTF-8"> <!-- Define a codificação de caracteres como UTF-8, que suporta a maioria dos caracteres. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Garante que a página seja exibida corretamente em dispositivos móveis. -->
+    <title>Gustavo Consignani | Consultoria Online</title> <!-- O título da página que aparece na aba do navegador. -->
     
+    <!-- 
+      As tags <link> a seguir são usadas para importar fontes do Google Fonts,
+      que são usadas para estilizar o texto da página.
+    -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 
+    <!-- 
+      Estas tags <link> importam as folhas de estilo CSS, que são usadas para
+      estilizar a aparência da página.
+      "style.css" contém os estilos gerais e "components.css" estilos para componentes específicos.
+    -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/components.css">
 </head>
 <body>
+    <!-- 
+      A tag <body> contém todo o conteúdo visível da página.
+    -->
 
+    <!-- 
+      O <header> (cabeçalho) normalmente contém o logotipo, o título do site e a navegação.
+      A classe "header" é usada para aplicar estilos específicos a este cabeçalho.
+    -->
     <header class="header">
         <div class="container">
+            <!-- O logotipo do site, que também é um link para a página inicial. -->
             <a href="index.html" class="logo">
                 Gustavo<span>Consignani</span>
             </a>
 
+            <!-- Este é o ícone do menu "hambúrguer" que aparece em telas menores (dispositivos móveis). -->
             <div class="menu-toggle" id="mobile-menu">
-                &#9776;
+                &#9776; <!-- Código HTML para o caractere de menu hambúrguer. -->
             </div>
 
+            <!-- 
+              A tag <nav> define um conjunto de links de navegação.
+            -->
             <nav>
-                <ul class="nav-menu">
-                    <li><a href="index.html" class="nav-link active">Home</a></li>
+                <ul class="nav-menu"> <!-- Uma lista não ordenada (<ul>) de itens de menu (<li>). -->
+                    <li><a href="index.html" class="nav-link active">Home</a></li> <!-- O link para a página "Home" é marcado como "active" para indicar que é a página atual. -->
                     <li><a href="sobre.html" class="nav-link">Sobre Mim</a></li>
                     <li><a href="planos.html" class="nav-link">Planos</a></li>
                     <li><a href="faq.html" class="nav-link">Dúvidas</a></li>
@@ -36,13 +66,24 @@
         </div>
     </header>
 
+    <!-- 
+      A tag <section> define uma seção em um documento.
+      Esta seção "hero" é a primeira coisa que o usuário vê e geralmente contém um título e um call-to-action.
+    -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
+                <!-- 
+                  As tags <h1> e <h2> são usadas para títulos e subtítulos.
+                  O <h1> é o título mais importante da página.
+                -->
                 <h1>Pare de <span style="color:var(--primary-color)">Adivinhar</span> seu Treino e Comece a Ter Resultados</h1>
                 
                 <h2>Tenha a estratégia de um especialista por um valor 10x menor que um personal presencial. Chega de ir para a academia sem saber o que fazer.</h2>
                 
+                <!-- 
+                  Esta div contém os botões de "call-to-action" que incentivam o usuário a tomar uma ação.
+                -->
                 <div class="hero-buttons">
                     <a href="planos.html" class="btn btn-primary">Quero Minha Estratégia</a>
                     <a href="sobre.html" class="btn btn-secondary">Conhecer o Método</a>
@@ -51,6 +92,11 @@
         </div>
     </section>
 
+    <!-- 
+      A tag <script> é usada para incluir código JavaScript.
+      "assets/js/main.js" provavelmente contém o código para interatividade, como o menu móvel.
+      O atributo "defer" garante que o script seja executado após a análise do HTML.
+    -->
     <script src="assets/js/main.js" defer></script>
 </body>
 </html>

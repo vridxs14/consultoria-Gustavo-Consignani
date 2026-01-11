@@ -1,6 +1,11 @@
+<!-- 
+  Este é o arquivo HTML para a página de Perguntas Frequentes (FAQ).
+  Ele usa um elemento HTML interessante, o <details>, para criar um efeito de "sanfona" (accordion).
+-->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <!-- Metadados, título e links padrão. -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dúvidas Frequentes | Gustavo Consignani</title>
@@ -12,36 +17,50 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/components.css">
 
+    <!-- CSS específico para a página de FAQ. -->
     <style>
         .faq-section { padding: 120px 0 80px; }
         .faq-header { text-align: center; margin-bottom: 60px; }
-        .faq-container { max-width: 800px; margin: 0 auto; }
+        .faq-container { max-width: 800px; margin: 0 auto; } /* Define a largura máxima para o container das perguntas. */
         
+        /* 
+          A tag <details> é um elemento HTML nativo que representa um widget de divulgação 
+          a partir do qual o usuário pode obter informações adicionais.
+        */
         details {
             background-color: var(--bg-card);
             margin-bottom: 15px;
             border-radius: 8px;
-            overflow: hidden;
+            overflow: hidden; /* Garante que o conteúdo não "vaze" das bordas arredondadas. */
             border: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.3s ease;
+            transition: all 0.3s ease; /* Animação suave para a borda. */
         }
 
+        /* Estilo que se aplica quando o <details> está aberto (o usuário clicou nele). */
         details[open] { border-color: var(--primary-color); }
 
+        /* 
+          A tag <summary> é a "pergunta" visível do widget. Clicar nela abre/fecha o <details>.
+        */
         summary {
             padding: 20px;
-            cursor: pointer;
+            cursor: pointer; /* O cursor vira uma "mãozinha" para indicar que é clicável. */
             font-weight: 700;
             font-family: var(--font-primary);
             position: relative;
-            list-style: none;
+            list-style: none; /* Remove o marcador de lista padrão (geralmente um triângulo). */
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between; /* Alinha a pergunta e o ícone '+' nas extremidades. */
             align-items: center;
         }
 
+        /* Remove o marcador padrão do <summary> em navegadores baseados em Webkit (Chrome, Safari). */
         summary::-webkit-details-marker { display: none; }
 
+        /* 
+          Cria um pseudo-elemento DEPOIS do conteúdo do <summary>.
+          Usado aqui para criar o ícone de '+' que indica que o item pode ser expandido.
+        */
         summary::after {
             content: '+';
             font-size: 1.5rem;
@@ -49,8 +68,13 @@
             transition: transform 0.3s;
         }
 
+        /* Quando o <details> está aberto, o ícone '+' é rotacionado 45 graus para se parecer com um 'x'. */
         details[open] summary::after { transform: rotate(45deg); }
 
+        /* 
+          Estiliza o parágrafo (<p>) que contém a resposta, dentro do <details>.
+          Este conteúdo só fica visível quando o <details> está aberto.
+        */
         details p {
             padding: 0 20px 20px;
             color: #ccc;
@@ -60,6 +84,7 @@
             padding-top: 20px;
         }
 
+        /* Estilos para a caixa de "Call to Action" (Chamada para Ação) no final da página. */
         .faq-cta {
             text-align: center;
             margin-top: 60px;
@@ -71,6 +96,7 @@
 </head>
 <body>
 
+    <!-- Cabeçalho reutilizado, com o link "Dúvidas" ativo. -->
     <header class="header">
         <div class="container">
             <a href="index.html" class="logo">Gustavo<span>Consignani</span></a>
@@ -87,6 +113,7 @@
         </div>
     </header>
 
+    <!-- Seção principal da página de FAQ. -->
     <section class="faq-section container">
         <div class="faq-header">
             <h1>Perguntas Frequentes</h1>
@@ -95,16 +122,19 @@
 
         <div class="faq-container">
             
+            <!-- Primeiro item do FAQ. Clicar no <summary> revelará o <p>. -->
             <details>
                 <summary>Como funciona a consultoria online?</summary>
                 <p>O processo é simples: após contratar, você preenche uma anamnese completa e envia suas fotos. Com essas informações, eu monto um protocolo de treino totalmente individualizado, alinhado ao seu objetivo, rotina e nível de experiência.</p>
             </details>
 
+            <!-- Segundo item do FAQ. -->
             <details>
                 <summary>Quanto tempo demora para receber meu treino?</summary>
                 <p>O prazo de entrega é de <strong>até 5 dias úteis</strong> após o envio da anamnese e das fotos. Esse é o tempo necessário para eu analisar tudo com cuidado e montar um treino realmente personalizado e seguro para você.</p>
             </details>
 
+            <!-- E assim por diante para todas as outras perguntas. -->
             <details>
                 <summary>Tenho lesão ou dores, posso treinar?</summary>
                 <p>Sem problema algum! Todas as suas limitações e dores devem ser informadas na anamnese. A partir disso, eu ajusto todo o treino para sua realidade, garantindo uma evolução contínua sem riscos desnecessários.</p>
@@ -137,13 +167,16 @@
 
         </div>
 
+        <!-- Seção de chamada para ação para contato via WhatsApp. -->
         <div class="faq-cta">
             <h3>Ainda com dúvida?</h3>
             <p style="margin-bottom: 20px;">Me chame no WhatsApp e vamos conversar.</p>
+            <!-- O link 'target="_blank"' faz com que o link seja aberto em uma nova aba. -->
             <a href="https://wa.me/55SEUNUMERO?text=Olá Gustavo, vi o FAQ mas ainda tenho uma dúvida." target="_blank" class="btn btn-secondary">Falar com Gustavo</a>
         </div>
     </section>
 
+    <!-- Script principal. -->
     <script src="assets/js/main.js"></script>
 </body>
 </html>
