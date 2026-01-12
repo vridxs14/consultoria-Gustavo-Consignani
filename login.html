@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,9 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/components.css">
 
@@ -15,40 +18,99 @@
         body {
             /* Fundo com imagem motivacional escura */
             background: linear-gradient(rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.9)),
-                        url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop') no-repeat center center/cover;
+                url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop') no-repeat center center/cover;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
-        
-        .login-container { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px 20px; margin-top: var(--header-height); }
-        
+
+        .login-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            margin-top: var(--header-height);
+        }
+
         .login-card {
             background-color: var(--bg-card);
             padding: 40px;
             border-radius: 10px;
             width: 100%;
             max-width: 450px;
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
             text-align: center;
         }
 
-        .login-header h1 { color: var(--primary-color); font-size: 2rem; margin-bottom: 10px; }
-        .login-header p { color: #ccc; margin-bottom: 30px; font-size: 0.9rem; }
-        
-        .form-group { margin-bottom: 20px; text-align: left; }
-        .form-group label { display: block; margin-bottom: 8px; font-size: 0.9rem; font-weight: 600; color: #ddd; }
-        .form-control { width: 100%; padding: 12px; background-color: var(--bg-dark); border: 1px solid #333; border-radius: 5px; color: white; }
-        .form-control:focus { outline: none; border-color: var(--primary-color); }
-        
-        .auth-error { color: #ff4d4d; font-size: 0.9rem; margin-bottom: 15px; display: none; background: rgba(255, 77, 77, 0.1); padding: 10px; border-radius: 4px; }
-        
-        .toggle-auth { margin-top: 20px; font-size: 0.9rem; color: #aaa; }
-        .toggle-auth a { color: var(--primary-color); font-weight: 700; cursor: pointer; }
-        .hidden { display: none; }
+        .login-header h1 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .login-header p {
+            color: #ccc;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #ddd;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--bg-dark);
+            border: 1px solid #333;
+            border-radius: 5px;
+            color: white;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .auth-error {
+            color: #ff4d4d;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            display: none;
+            background: rgba(255, 77, 77, 0.1);
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .toggle-auth {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        .toggle-auth a {
+            color: var(--primary-color);
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
+
 <body>
 
     <header class="header">
@@ -65,7 +127,7 @@
     <div class="login-container">
         <div class="login-card">
             <div id="auth-message" class="auth-error"></div>
-            
+
             <form id="login-form">
                 <div class="login-header">
                     <h1>Bem-vindo</h1>
@@ -73,35 +135,52 @@
                 </div>
                 <div class="form-group">
                     <label>E-mail</label>
-                    <input type="email" id="login-email" class="form-control" placeholder="Seu e-mail de acesso" required>
+                    <input type="email" id="login-email" class="form-control" placeholder="Seu e-mail de acesso"
+                        required>
                 </div>
                 <div class="form-group">
                     <label>Senha</label>
                     <input type="password" id="login-password" class="form-control" placeholder="Sua senha" required>
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%;">Entrar</button>
-                <div class="toggle-auth">Ainda não é aluno? <a id="show-register">Criar conta</a></div>
+                <div class="toggle-auth">
+                    <a id="show-reset"
+                        style="display:block; margin-bottom:10px; font-weight:400; font-size: 0.8rem;">Esqueci minha
+                        senha</a>
+                    <div>
+                        Ainda não é aluno? <a href="planos.html" style="color:var(--primary-color);">Ver Planos</a>
+                    </div>
+                </div>
             </form>
 
-            <form id="register-form" class="hidden">
+            <form id="reset-form" class="hidden">
                 <div class="login-header">
-                    <h1>Criar Conta</h1>
-                    <p>Comece sua transformação hoje.</p>
+                    <h1>Recuperar Senha</h1>
+                    <p>Digite seu e-mail para receber o link.</p>
                 </div>
                 <div class="form-group">
-                    <label>E-mail</label>
-                    <input type="email" id="reg-email" class="form-control" placeholder="Seu melhor e-mail" required>
+                    <label>E-mail Cadastrado</label>
+                    <input type="email" id="reset-email" class="form-control" placeholder="exemplo@email.com" required>
+                </div>
+                <button type="submit" class="btn btn-primary"
+                    style="width: 100%; background-color: var(--text-gray); border-color: var(--text-gray);">Enviar
+                    Link</button>
+                <div class="toggle-auth"><a id="back-to-login">Voltar para o Login</a></div>
+            </form>
+
+            <form id="reset-form" class="hidden">
+                <div class="login-header">
+                    <h1>Recuperar Senha</h1>
+                    <p>Digite seu e-mail para receber o link.</p>
                 </div>
                 <div class="form-group">
-                    <label>Senha</label>
-                    <input type="password" id="reg-password" class="form-control" placeholder="Mínimo 6 caracteres" required>
+                    <label>E-mail Cadastrado</label>
+                    <input type="email" id="reset-email" class="form-control" placeholder="exemplo@email.com" required>
                 </div>
-                <div class="form-group">
-                    <label>Confirmar Senha</label>
-                    <input type="password" id="reg-confirm" class="form-control" placeholder="Repita a senha" required>
-                </div>
-                <button type="submit" class="btn btn-secondary" style="width: 100%;">Cadastrar</button>
-                <div class="toggle-auth">Já tem conta? <a id="show-login">Fazer Login</a></div>
+                <button type="submit" class="btn btn-primary"
+                    style="width: 100%; background-color: var(--text-gray); border-color: var(--text-gray);">Enviar
+                    Link</button>
+                <div class="toggle-auth"><a id="back-to-login">Voltar para o Login</a></div>
             </form>
         </div>
     </div>
@@ -111,10 +190,10 @@
     <script>
         // Verifica se o usuário veio da vitrine de produtos tentando comprar
         const params = new URLSearchParams(window.location.search);
-        
+
         if (params.get('msg') === 'nova_compra') {
             const loginCard = document.querySelector('.login-card');
-            
+
             // Cria um card de aviso elegante
             const alertBox = document.createElement('div');
             alertBox.style.background = 'rgba(204, 255, 0, 0.1)'; // Fundo levemente verde
@@ -123,7 +202,7 @@
             alertBox.style.borderRadius = '8px';
             alertBox.style.marginBottom = '20px';
             alertBox.style.textAlign = 'left';
-            
+
             // Ícone de cadeado e texto explicativo
             alertBox.innerHTML = `
                 <div style="display:flex; gap:15px; align-items:center;">
@@ -136,7 +215,7 @@
                     </div>
                 </div>
             `;
-            
+
             // Insere o aviso logo no topo do card, antes de tudo
             loginCard.prepend(alertBox);
 
@@ -146,4 +225,5 @@
         }
     </script>
 </body>
+
 </html>

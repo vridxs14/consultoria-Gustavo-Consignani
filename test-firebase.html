@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Diagnóstico Firebase</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background: #0a0a0a;
+            color: white;
+            padding: 40px;
+        }
+
+        .card {
+            background: #1a1a1a;
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #CCFF00;
+        }
+
+        .status-item {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            background: #222;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status-ok {
+            border-left: 5px solid #00ff00;
+        }
+
+        .status-error {
+            border-left: 5px solid #ff0000;
+        }
+
+        .status-pending {
+            border-left: 5px solid #ffff00;
+        }
+
+        code {
+            background: #333;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h1>🔧 Diagnóstico de Conexão</h1>
+        <p>Testando a configuração do seu Firebase...</p>
+
+        <div id="test-config" class="status-item status-pending">
+            <span>1. Configuração (SDK)</span>
+            <span id="res-config">Verificando...</span>
+        </div>
+
+        <div id="test-auth" class="status-item status-pending">
+            <span>2. Serviço de Autenticação</span>
+            <span id="res-auth">Aguardando...</span>
+        </div>
+
+        <div id="test-firestore" class="status-item status-pending">
+            <span>3. Conexão com Banco (Firestore)</span>
+            <span id="res-firestore">Aguardando...</span>
+        </div>
+
+        <div style="margin-top: 30px; border-top: 1px solid #333; padding-top: 20px;">
+            <p><strong>Dica de Segurança:</strong><br>Este teste apenas verifica se o site consegue <em>falar</em> com o
+                Firebase. Para garantir que nem todo mundo pode apagar seus dados, você precisa checar as
+                <strong>Regras/Rules</strong> no Console do Firebase.</p>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, collection, getDocs, limit, query } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // SUA CONFIGURAÇÃO
+        const firebaseConfig = {
+            apiKey: "AIzaSyBhn78MS1oil5bQqrT9zu16ZuiEssWkpTw",
+            authDomain: "site-gustavo-consignani.firebaseapp.com",
+            projectId: "site-gustavo-consignani",
+            storageBucket: "site-gustavo-consignani.firebasestorage.app",
+            messagingSenderId: "398708841488",
+            appId: "1:398708841488:web:d98bdaf980c541b976be95",
+            measurementId: "G-FPRMGV4209"
+        };
+
+        const updateStatus = (id, success, msg) => {
+            const el = document.getElementById(id);
+            const txt = document.getElementById(id.replace('test', 'res'));
+            el.className = `status-item ${success ? 'status-ok' : 'status-error'}`;
+            txt.textContent = msg;
+            txt.style.color = success ? '#00ff00' : '#ff4d4d';
+        };
+
+        async function runDiagnostics() {
+            // 1. TEST CONFIG
+            try {
+                const app = initializeApp(firebaseConfig);
+                updateStatus('test-config', true, "OK (Inicializado)");
+
+                // 2. TEST AUTH
+                const auth = getAuth(app);
+                try {
+                    // Tenta ver se o objeto auth responde
+                    if (auth) {
+                        updateStatus('test-auth', true, "OK (Serviço Ativo)");
+                    }
+                } catch (e) {
+                    updateStatus('test-auth', false, "Falha: " + e.message);
+                }
+
+                // 3. TEST FIRESTORE
+                const db = getFirestore(app);
+                try {
+                    // Tenta ler uma coleção que provavelmente não existe só para testar conexão
+                    const q = query(collection(db, "test_connection"), limit(1));
+                    await getDocs(q);
+                    // Se não estourar erro de permissão ou rede, conectou
+                    updateStatus('test-firestore', true, "OK (Conectado)");
+                } catch (e) {
+                    if (e.code === 'permission-denied') {
+                        updateStatus('test-firestore', true, "OK (Conectado, mas restrito)");
+                    } else if (e.code === 'unavailable') {
+                        updateStatus('test-firestore', false, "Offline / Bloqueado");
+                    } else {
+                        updateStatus('test-firestore', true, "OK (" + e.code + ")");
+                    }
+                }
+
+            } catch (e) {
+                updateStatus('test-config', false, "Erro Crítico: " + e.message);
+            }
+        }
+
+        runDiagnostics();
+    </script>
+</body>
+
+</html>

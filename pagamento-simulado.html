@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Seguro | Gustavo Consignani</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css"> <!-- Reutilizando estilos base -->
+
+    <style>
+        body {
+            background-color: #f5f5f5;
+            /* Light mode para passar confiança */
+            font-family: 'Open Sans', sans-serif;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .checkout-container {
+            width: 100%;
+            max-width: 1000px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+        }
+
+        /* LADO ESQUERDO: RESUMO */
+        .summary-side {
+            background: #111;
+            color: white;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .store-logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+        }
+
+        .store-logo span {
+            color: #CCFF00;
+            font-weight: 700;
+        }
+
+        .product-box {
+            background: #222;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            margin-bottom: 20px;
+        }
+
+        .prod-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: #CCFF00;
+        }
+
+        .prod-price {
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .secure-info {
+            margin-top: auto;
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .secure-info i {
+            margin-right: 5px;
+            color: #2ecc71;
+        }
+
+        /* LADO DIREITO: FORMULÁRIO */
+        .form-side {
+            padding: 40px;
+        }
+
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.95rem;
+            background: #fff;
+        }
+
+        .form-control:focus {
+            border-color: #2980b9;
+            outline: none;
+        }
+
+        .row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .btn-pay {
+            width: 100%;
+            padding: 15px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.2s;
+        }
+
+        .btn-pay:hover {
+            background: #219150;
+        }
+
+        .btn-pay:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 800px) {
+            .checkout-container {
+                grid-template-columns: 1fr;
+            }
+
+            .summary-side {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="checkout-container">
+
+        <!-- RESUMO DA COMPRA -->
+        <div class="summary-side">
+            <div class="store-logo">Gustavo<span>Consignani</span></div>
+
+            <p style="color:#aaa; margin-bottom:10px; font-size:0.9rem;">VOCÊ ESTÁ ADQUIRINDO:</p>
+            <div class="product-box">
+                <div id="display-plan-name" class="prod-title">Carregando...</div>
+                <div id="display-plan-price" class="prod-price">R$ 0,00</div>
+                <div style="font-size:0.8rem; color:#999; margin-top:5px;">Acesso Imediato ao App + Suporte</div>
+            </div>
+
+            <div class="secure-info">
+                <p><i class="fas fa-lock"></i> Compra 100% Segura</p>
+                <p style="margin-top:5px;">Seus dados de pagamento são criptografados.</p>
+            </div>
+        </div>
+
+        <!-- FORMULÁRIO UNIFICADO -->
+        <div class="form-side">
+
+            <!-- PASSO 1: DADOS DA CONTA -->
+            <h2>1. Crie sua Conta de Acesso</h2>
+            <div class="form-group">
+                <label>Nome Completo (Para sua ficha)</label>
+                <input type="text" id="reg-name" class="form-control" placeholder="Seu nome" required>
+            </div>
+
+            <div class="row-2">
+                <div class="form-group">
+                    <label>WhatsApp</label>
+                    <input type="tel" id="reg-whatsapp" class="form-control" placeholder="(11) 99999-9999" required>
+                </div>
+                <div class="form-group">
+                    <label>Data de Nascimento</label>
+                    <input type="date" id="reg-birth" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Seu E-mail (Será seu login)</label>
+                <input type="email" id="reg-email" class="form-control" placeholder="email@exemplo.com" required>
+            </div>
+
+            <div class="form-group">
+                <label>Crie uma Senha</label>
+                <input type="password" id="reg-password" class="form-control" placeholder="Mínimo 6 caracteres"
+                    required>
+            </div>
+
+            <!-- PASSO 2: PAGAMENTO -->
+            <h2 style="margin-top: 30px;">2. Pagamento (Simulado)</h2>
+            <div class="form-group">
+                <label>Número do Cartão</label>
+                <input type="text" class="form-control" placeholder="0000 0000 0000 0000 (Fictício)">
+            </div>
+            <div class="row-2">
+                <div class="form-group">
+                    <label>Validade</label>
+                    <input type="text" class="form-control" placeholder="MM/AA">
+                </div>
+                <div class="form-group">
+                    <label>CVV</label>
+                    <input type="text" class="form-control" placeholder="123">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Nome no Cartão</label>
+                <input type="text" class="form-control" placeholder="Como no cartão">
+            </div>
+
+            <button id="btn-finish" class="btn-pay">FINALIZAR INSCRIÇÃO AGORA</button>
+            <p id="error-msg" style="color:red; font-size:0.8rem; margin-top:10px; display:none;"></p>
+
+        </div>
+    </div>
+
+    <!-- FIREBASE SDKs -->
+    <script type="module">
+        import { auth, db } from './assets/js/firebase-config.js';
+        import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // 1. CARREGAR DADOS DA URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const planKey = urlParams.get('plano') || 'mensal';
+
+        const plans = {
+            'mensal': { name: 'Plano START (Mensal)', price: 129.97, display: 'R$ 129,97', period: 'mês' },
+            'trimestral': { name: 'Plano EVOLUTION (Trimestral)', price: 299.90, display: 'R$ 299,90', period: '3 meses' },
+            'semestral': { name: 'Plano PRO (Semestral)', price: 539.40, display: 'R$ 539,40', period: '6 meses' }
+        };
+        const product = plans[planKey.toLowerCase()] || plans['mensal'];
+
+        // Atualiza UI
+        document.getElementById('display-plan-name').textContent = product.name;
+        document.getElementById('display-plan-price').textContent = product.display;
+
+        // 2. LÓGICA DE FINALIZAÇÃO
+        document.getElementById('btn-finish').addEventListener('click', async () => {
+            const btn = document.getElementById('btn-finish');
+            const errorMsg = document.getElementById('error-msg');
+
+            // Coleta Dados
+            const nome = document.getElementById('reg-name').value;
+            const email = document.getElementById('reg-email').value;
+            const senha = document.getElementById('reg-password').value;
+            const whatsapp = document.getElementById('reg-whatsapp').value;
+            const birth = document.getElementById('reg-birth').value;
+
+            // Validação Básica
+            if (!nome || !email || !senha || !whatsapp) {
+                alert("Por favor, preencha todos os dados da conta.");
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = "PROCESSANDO...";
+            errorMsg.style.display = 'none';
+
+            try {
+                // A. CRIAR USUÁRIO NO FIREBASE
+                const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
+                const user = userCredential.user;
+
+                // B. ATUALIZAR PERFIL
+                await updateProfile(user, { displayName: nome });
+
+                // C. SALVAR DADOS NO FIRESTORE (Incluindo a compra)
+                await setDoc(doc(db, "users", user.uid), {
+                    nome: nome,
+                    email: email,
+                    whatsapp: whatsapp,
+                    dataNascimento: birth,
+                    createdAt: new Date().toISOString(),
+                    // DADOS DA COMPRA
+                    activePlan: planKey,
+                    planValue: product.price,
+                    purchaseDate: new Date().toISOString()
+                });
+
+                // D. ENVIAR E-MAIL DE VERIFICAÇÃO (Segurança)
+                // await sendEmailVerification(user); 
+                // Obs: Em fluxo de compra real, geralmente já logamos direto. 
+                // Mas seu sistema bloqueia se não verificar. Vamos deixar o aviso no dashboard?
+                // Para simplificar a experiência do usuário pagante, vamos logar e redirecionar.
+                // O dashboard vai barrar se não verificar? Sim dashboard.js barra.
+                // Vamos enviar o email e avisar.
+
+                await sendEmailVerification(user);
+
+                alert("✅ CONTA CRIADA E PAGAMENTO APROVADO!\n\nUm e-mail de verificação foi enviado. Por favor, confirme seu e-mail antes de acessar.");
+
+                // Redireciona para o Login (para ele confirmar o email e entrar)
+                // OU Redireciona para o Dashboard (que vai pedir verificação)
+                window.location.href = `dashboard.html?status=aprovado&plano=${planKey}`;
+
+            } catch (error) {
+                console.error("Erro:", error);
+                errorMsg.textContent = "Erro: " + error.message;
+                errorMsg.style.display = 'block';
+                btn.disabled = false;
+                btn.textContent = "TENTAR NOVAMENTE";
+            }
+        });
+
+        // Máscaras visuais
+        document.getElementById('reg-whatsapp').addEventListener('input', (e) => {
+            let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
+            e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+        });
+    </script>
+</body>
+
+</html>

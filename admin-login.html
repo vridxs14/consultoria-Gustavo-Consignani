@@ -1,78 +1,130 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acesso Administrativo | Gustavo Consignani</title>
+    <title>Admin Login | Gustavo Consignani</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/components.css">
 
     <style>
         body {
-            background-color: #050505; /* Fundo mais escuro que o normal */
-            display: flex; flex-direction: column; min-height: 100vh;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
-        .admin-login-container {
-            flex: 1; display: flex; align-items: center; justify-content: center; padding: 20px;
-        }
-        .admin-card {
-            background-color: #111;
-            padding: 40px;
-            border-radius: 8px;
-            width: 100%; max-width: 400px;
+
+        .admin-login-card {
+            background: #111;
             border: 1px solid #333;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            padding: 40px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 400px;
             text-align: center;
         }
-        .admin-card h1 { font-size: 1.5rem; color: white; margin-bottom: 5px; }
-        .admin-card p { color: #666; font-size: 0.8rem; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1px; }
-        
-        .form-group { margin-bottom: 20px; text-align: left; }
-        .form-control { 
-            background: #000; border: 1px solid #333; color: white; padding: 15px; 
-            border-radius: 4px; width: 100%; transition: 0.3s;
-        }
-        .form-control:focus { border-color: var(--primary-color); outline: none; }
-        
-        .btn-admin {
-            background: white; color: black; font-weight: 800; border: none; padding: 15px; 
-            width: 100%; border-radius: 4px; cursor: pointer; text-transform: uppercase;
-        }
-        .btn-admin:hover { background: var(--primary-color); }
 
-        .error-msg { 
-            color: #ff4444; background: rgba(255, 68, 68, 0.1); 
-            padding: 10px; border-radius: 4px; font-size: 0.9rem; margin-bottom: 20px; display: none; 
+        .admin-title {
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            font-size: 1.5rem;
+        }
+
+        .admin-title span {
+            color: var(--primary-color);
+        }
+
+        .form-control {
+            background: #222;
+            border: 1px solid #444;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        #error-msg {
+            color: #ff4d4d;
+            background: rgba(255, 77, 77, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            display: none;
         }
     </style>
 </head>
+
 <body>
 
-    <div class="admin-login-container">
-        <div class="admin-card">
-            <div id="error-box" class="error-msg"></div>
+    <div class="admin-login-card">
+        <h1 class="admin-title">Área <span>Admin</span></h1>
 
-            <h1>Gustavo Consignani</h1>
-            <p>Painel Administrativo</p>
-            
-            <form id="admin-form">
-                <div class="form-group">
-                    <input type="email" id="email" class="form-control" placeholder="E-mail Admin" required>
-                </div>
-                <div class="form-group">
-                    <input type="password" id="password" class="form-control" placeholder="Senha" required>
-                </div>
-                <button type="submit" id="btn-submit" class="btn-admin">Entrar</button>
-            </form>
-            
-            <div style="margin-top: 30px;">
-                <a href="index.html" style="color: #444; font-size: 0.8rem; text-decoration: none;">&larr; Voltar ao site</a>
-            </div>
-        </div>
+        <div id="error-msg"></div>
+
+        <form id="admin-form">
+            <input type="email" id="admin-email" class="form-control" placeholder="E-mail Administrativo" required>
+            <input type="password" id="admin-pass" class="form-control" placeholder="Senha" required>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Acessar Painel</button>
+        </form>
+
+        <a href="index.html" style="display: block; margin-top: 20px; color: #666; font-size: 0.8rem;">&larr; Voltar ao
+            Site</a>
     </div>
 
-    <script type="module" src="assets/js/admin-login.js"></script>
+    <script type="module">
+        import { auth, db } from './assets/js/firebase-config.js';
+        import { signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const form = document.getElementById('admin-form');
+        const msgBox = document.getElementById('error-msg');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('admin-email').value;
+            const password = document.getElementById('admin-pass').value;
+            const btn = form.querySelector('button');
+
+            try {
+                btn.textContent = 'Verificando Permissões...';
+                btn.disabled = true;
+                msgBox.style.display = 'none';
+
+                // 1. Autentica no Firebase Auth
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                // 2. VERIFICAÇÃO DE SEGURANÇA (Email White-list)
+                // Reflete a regra de segurança do banco de dados
+                const admins = ['vridxz@gmail.com', 'contato@gustavoconsignani.com.br'];
+
+                if (admins.includes(user.email)) {
+                    // SUCESSO: É admin
+                    window.location.href = 'admin-dashboard.html';
+                } else {
+                    // FALHA: É um usuário comum tentando entrar
+                    throw new Error("Acesso não autorizado. E-mail não consta na lista de admins.");
+                }
+
+            } catch (error) {
+                console.error("Erro Admin:", error);
+                await signOut(auth); // Desloga imediatamente por segurança
+
+                msgBox.textContent = "Acesso Negado: " + (error.message || "Credenciais inválidas");
+                msgBox.style.display = 'block';
+                btn.textContent = 'Acessar Painel';
+                btn.disabled = false;
+            }
+        });
+    </script>
 </body>
+
 </html>

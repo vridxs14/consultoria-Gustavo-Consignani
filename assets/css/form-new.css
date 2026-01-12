@@ -1,0 +1,204 @@
+/* =========================================
+   PREMIUM FORM DESIGN (Glassmorphism + Neon)
+   ========================================= */
+
+/* Fundo da página já é dark pelo style.css, mas reforçamos */
+body {
+    background-color: #050505;
+}
+
+.anamnese-container {
+    padding: 100px 20px 40px;
+    /* Top padding para header fixo */
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Header Compacto (Mobile First) */
+.form-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.form-header h1 {
+    font-size: 2rem;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.form-header p {
+    color: #888;
+    font-size: 0.9rem;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+/* Card do Formulário (Glass) */
+.glass-form-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+/* Seções do Formulário */
+.form-section {
+    margin-bottom: 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 30px;
+}
+
+.form-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.section-title {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-transform: uppercase;
+}
+
+/* Inputs Premium (Linha apenas) */
+.form-group {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    color: #aaa;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    transition: 0.3s;
+}
+
+.form-control-premium {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #333;
+    color: white;
+    font-size: 1.1rem;
+    padding: 10px 0;
+    font-family: 'Open Sans', sans-serif;
+    transition: 0.4s;
+    border-radius: 0;
+    /* Remove borda arredondada padrão */
+}
+
+.form-control-premium:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.form-control-premium:focus+label {
+    color: var(--primary-color);
+}
+
+/* Select customizado (Hack simples para Dark Mode) */
+select.form-control-premium {
+    color: white;
+    cursor: pointer;
+}
+
+select.form-control-premium option {
+    background: #111;
+    color: white;
+    padding: 10px;
+}
+
+/* Checkbox/Radios Estilizados (Cards Selecionáveis) */
+.selection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+}
+
+.radio-card {
+    position: relative;
+}
+
+.radio-card input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.radio-label {
+    display: block;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: 0.3s;
+    color: #ccc;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.radio-card input:checked+.radio-label {
+    border-color: var(--primary-color);
+    background: rgba(204, 255, 0, 0.1);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.radio-card:hover .radio-label {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Botão de Envio */
+.btn-submit-premium {
+    width: 100%;
+    padding: 20px;
+    background: var(--primary-color);
+    color: black;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+    box-shadow: 0 5px 20px rgba(204, 255, 0, 0.2);
+}
+
+.btn-submit-premium:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(204, 255, 0, 0.4);
+    background: white;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .anamnese-container {
+        padding-top: 80px;
+    }
+
+    .glass-form-card {
+        padding: 20px;
+        border-radius: 0;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+    }
+
+    .form-control-premium {
+        font-size: 1rem;
+    }
+}

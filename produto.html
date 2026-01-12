@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes do Plano | Gustavo Consignani</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/components.css">
 
     <style>
-        .product-section { padding: 140px 20px 80px; max-width: 1100px; margin: 0 auto; }
-        
+        .product-section {
+            padding: 140px 20px 80px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
         .product-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -26,69 +33,195 @@
             overflow: hidden;
             border: 1px solid #333;
             height: 600px;
-            display: flex; align-items: center; justify-content: center;
-            position: sticky; top: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: sticky;
+            top: 120px;
         }
+
         .product-image img {
-            width: 100%; height: 100%; object-fit: cover; opacity: 0.8;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
             transition: 0.5s;
         }
-        .product-image:hover img { transform: scale(1.05); opacity: 1; }
+
+        .product-image:hover img {
+            transform: scale(1.05);
+            opacity: 1;
+        }
 
         /* Coluna de Detalhes */
-        .product-info h1 { font-size: 2.5rem; margin-bottom: 10px; line-height: 1.1; }
-        .product-category { color: var(--primary-color); text-transform: uppercase; font-weight: bold; letter-spacing: 2px; font-size: 0.9rem; margin-bottom: 20px; display: block; }
-        
-        .product-price { 
-            font-size: 2rem; font-weight: 300; margin: 20px 0; border-bottom: 1px solid #333; padding-bottom: 20px; 
-            display: flex; gap: 15px; align-items: baseline;
+        .product-info h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            line-height: 1.1;
         }
-        .price-highlight { color: white; font-weight: 700; }
-        
-        .product-desc { color: #ccc; line-height: 1.6; margin-bottom: 30px; font-size: 1rem; }
 
-        .benefits-list { list-style: none; margin-bottom: 40px; }
-        .benefits-list li { margin-bottom: 10px; display: flex; align-items: center; color: #ddd; }
-        .benefits-list li::before { content: '✓'; color: var(--primary-color); margin-right: 10px; font-weight: bold; }
+        .product-category {
+            color: var(--primary-color);
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .product-price {
+            font-size: 2rem;
+            font-weight: 300;
+            margin: 20px 0;
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: baseline;
+        }
+
+        .price-highlight {
+            color: white;
+            font-weight: 700;
+        }
+
+        .product-desc {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+
+        .benefits-list {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .benefits-list li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            color: #ddd;
+        }
+
+        .benefits-list li::before {
+            content: '✓';
+            color: var(--primary-color);
+            margin-right: 10px;
+            font-weight: bold;
+        }
 
         .btn-buy {
-            background: white; color: black; width: 100%; padding: 20px; 
-            font-weight: 800; text-transform: uppercase; border-radius: 50px; 
-            border: none; cursor: pointer; font-size: 1.1rem; transition: 0.3s;
-            display: block; text-align: center; text-decoration: none;
+            background: white;
+            color: black;
+            width: 100%;
+            padding: 20px;
+            font-weight: 800;
+            text-transform: uppercase;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: 0.3s;
+            display: block;
+            text-align: center;
+            text-decoration: none;
         }
-        .btn-buy:hover { background: var(--primary-color); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(204, 255, 0, 0.2); }
 
-        .secure-badge { text-align: center; margin-top: 15px; margin-bottom: 30px; color: #666; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .btn-buy:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(204, 255, 0, 0.2);
+        }
+
+        .secure-badge {
+            text-align: center;
+            margin-top: 15px;
+            margin-bottom: 30px;
+            color: #666;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
 
         /* ESTILO DA POLÍTICA */
         .legal-accordion {
             border-top: 1px solid #333;
             margin-top: 20px;
         }
-        details { padding: 15px 0; cursor: pointer; transition: 0.3s; }
-        summary {
-            list-style: none; font-weight: 700; color: #888; font-size: 0.9rem;
-            display: flex; justify-content: space-between; align-items: center;
+
+        details {
+            padding: 15px 0;
+            cursor: pointer;
+            transition: 0.3s;
         }
-        summary:hover { color: white; }
-        summary::after { content: '+'; font-size: 1.2rem; }
-        details[open] summary::after { content: '-'; color: var(--primary-color); }
-        details[open] summary { color: var(--primary-color); }
+
+        summary {
+            list-style: none;
+            font-weight: 700;
+            color: #888;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        summary:hover {
+            color: white;
+        }
+
+        summary::after {
+            content: '+';
+            font-size: 1.2rem;
+        }
+
+        details[open] summary::after {
+            content: '-';
+            color: var(--primary-color);
+        }
+
+        details[open] summary {
+            color: var(--primary-color);
+        }
 
         .legal-text {
-            font-size: 0.8rem; color: #999; line-height: 1.6; margin-top: 15px; padding: 15px;
-            background: rgba(255,255,255,0.03); border-radius: 8px; text-align: justify;
+            font-size: 0.8rem;
+            color: #999;
+            line-height: 1.6;
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            text-align: justify;
         }
-        .legal-text strong { color: #ccc; display: block; margin-top: 10px; margin-bottom: 2px; }
+
+        .legal-text strong {
+            color: #ccc;
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 2px;
+        }
 
         @media (max-width: 900px) {
-            .product-grid { grid-template-columns: 1fr; }
-            .product-image { height: 300px; position: static; }
-            .product-section { padding-top: 100px; }
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-image {
+                height: 300px;
+                position: static;
+            }
+
+            .product-section {
+                padding-top: 100px;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <header class="header">
@@ -105,17 +238,18 @@
 
     <section class="product-section">
         <div id="loading" style="text-align: center; padding: 50px;">Carregando detalhes...</div>
-        
+
         <div id="product-content" class="product-grid" style="display: none;">
-            
+
             <div class="product-image">
-                <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1470&auto=format&fit=crop" alt="Consultoria Fitness">
+                <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1470&auto=format&fit=crop"
+                    alt="Consultoria Fitness">
             </div>
 
             <div class="product-info">
                 <span class="product-category">Consultoria Online</span>
                 <h1 id="p-title">Nome do Plano</h1>
-                
+
                 <div class="product-price">
                     <span id="p-price" class="price-highlight">R$ 00,00</span>
                     <span style="font-size: 0.9rem; color: #888; font-weight: normal;">/ total do período</span>
@@ -131,7 +265,7 @@
                 </ul>
 
                 <a id="btn-action" href="#" class="btn-buy">Adicionar ao Carrinho</a>
-                
+
                 <div class="secure-badge">
                     🔒 Compra Segura • Acesso Imediato ao Cadastro
                 </div>
@@ -143,19 +277,27 @@
                             <p>Ao contratar nossos serviços, você declara estar ciente dos termos abaixo:</p>
 
                             <strong>1. Reserva de Vaga e Início do Serviço</strong>
-                            A conclusão da compra garante sua vaga no atendimento individualizado e configura o início imediato da prestação de serviço (reserva de estrutura), independentemente do envio da anamnese.
+                            A conclusão da compra garante sua vaga no atendimento individualizado e configura o início
+                            imediato da prestação de serviço (reserva de estrutura), independentemente do envio da
+                            anamnese.
 
                             <strong>2. Direito de Arrependimento (7 Dias)</strong>
-                            Conforme o Artigo 49 do CDC, você tem direito ao arrependimento no prazo de 7 (sete) dias corridos após a confirmação do pagamento. Após este prazo, o direito de arrependimento é encerrado.
+                            Conforme o Artigo 49 do CDC, você tem direito ao arrependimento no prazo de 7 (sete) dias
+                            corridos após a confirmação do pagamento. Após este prazo, o direito de arrependimento é
+                            encerrado.
 
                             <strong>3. Critério Técnico</strong>
-                            Não realizamos reembolso caso o cliente "não goste" do treino prescrito. A consultoria é um serviço técnico baseado na sua necessidade fisiológica, não estando sujeita à concordância subjetiva.
+                            Não realizamos reembolso caso o cliente "não goste" do treino prescrito. A consultoria é um
+                            serviço técnico baseado na sua necessidade fisiológica, não estando sujeita à concordância
+                            subjetiva.
 
                             <strong>4. Cancelamento durante a vigência</strong>
-                            Não realizamos reembolso proporcional (pro-rata) caso o cliente desista ao longo da consultoria. Uma vez enviadas as informações, toda a periodização é estruturada.
+                            Não realizamos reembolso proporcional (pro-rata) caso o cliente desista ao longo da
+                            consultoria. Uma vez enviadas as informações, toda a periodização é estruturada.
 
                             <strong>5. Prazo de Validade</strong>
-                            O protocolo deste plano tem validade de uso (para envio da anamnese e execução) por até <span id="legal-days" style="color:white; font-weight:bold;">XX dias</span> após a compra.
+                            O protocolo deste plano tem validade de uso (para envio da anamnese e execução) por até
+                            <span id="legal-days" style="color:white; font-weight:bold;">XX dias</span> após a compra.
                         </div>
                     </details>
                 </div>
@@ -166,7 +308,7 @@
 
     <script type="module">
         import { auth } from './assets/js/firebase-config.js';
-        
+
         const products = {
             'mensal': {
                 title: 'Plano Mensal (Start)',
@@ -203,21 +345,17 @@
             document.getElementById('p-price').textContent = product.price;
             document.getElementById('p-desc').textContent = product.desc;
             document.getElementById('p-extra').textContent = product.extra;
-            
+
             // ATUALIZAÇÃO DA VALIDADE JURÍDICA
             document.getElementById('legal-days').textContent = product.validity;
 
             const btn = document.getElementById('btn-action');
-            btn.href = `checkout.html?plano=${planKey}`; 
-            
+            btn.href = `pagamento-simulado.html?plano=${planKey}`;
+
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
-                const user = auth.currentUser;
-                if (user) {
-                    window.location.href = `checkout.html?plano=${planKey}`;
-                } else {
-                    window.location.href = `login.html?redirect=checkout&plano=${planKey}&msg=nova_compra`;
-                }
+                // Redireciona direto para o Checkout Unificado (Cadastro + Pagamento)
+                window.location.href = `pagamento-simulado.html?plano=${planKey}`;
             });
 
             loading.style.display = 'none';
@@ -227,4 +365,5 @@
         }
     </script>
 </body>
+
 </html>

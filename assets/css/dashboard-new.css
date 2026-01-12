@@ -1,0 +1,146 @@
+/* =========================================
+   DASHBOARD REDESIGN (Mobile First)
+   ========================================= */
+
+/* 1. LAYOUT & GRID */
+body {
+    background-color: #050505; /* Fundo ainda mais escuro para destaque */
+    padding-bottom: 80px; /* Espaço para Bottom Nav */
+}
+
+.dash-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* 2. HEADER SIMPLIFICADO */
+.dash-header-mobile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-top: 10px;
+}
+
+.user-greeting {
+    font-size: 1.5rem;
+    font-weight: 800;
+    font-family: var(--font-primary);
+    color: white;
+}
+.user-greeting span { color: var(--primary-color); }
+
+.user-avatar {
+    width: 45px; height: 45px;
+    background: #222;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid var(--primary-color);
+    font-weight: bold; color: var(--primary-color);
+}
+
+/* 3. STATUS BANNER */
+.status-banner {
+    background: linear-gradient(90deg, rgba(204, 255, 0, 0.1), rgba(204, 255, 0, 0.02));
+    border-left: 4px solid var(--primary-color);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    display: flex; justify-content: space-between; align-items: center;
+}
+.status-text { font-size: 0.9rem; color: #ccc; }
+.status-badge { background: var(--primary-color); color: black; padding: 4px 10px; border-radius: 4px; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; }
+
+/* 4. CARDS (GLASSMORPHISM) */
+.glass-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Mobile: 1 coluna */
+    gap: 20px;
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 25px;
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efeito de brilho no hover */
+.glass-card::before {
+    content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+    transition: 0.5s;
+}
+.glass-card:hover::before { left: 100%; }
+.glass-card:hover { transform: translateY(-5px); border-color: var(--primary-color); }
+
+.card-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+.card-icon-box {
+    width: 50px; height: 50px;
+    background: rgba(204, 255, 0, 0.1);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; color: var(--primary-color);
+}
+.card-title-new { font-size: 1.1rem; font-weight: 700; color: white; font-family: var(--font-primary); }
+.card-desc-new { font-size: 0.9rem; color: #888; margin-bottom: 20px; line-height: 1.5; }
+
+/* 5. BOTTOM NAVIGATION (MOBILE) */
+.bottom-nav {
+    position: fixed; bottom: 0; left: 0; width: 100%;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex; justify-content: space-around;
+    padding: 15px 0;
+    z-index: 1000;
+}
+
+.nav-item {
+    font-size: 1.5rem; color: #666;
+    display: flex; flex-direction: column; align-items: center;
+    text-decoration: none; font-size: 0.7rem; gap: 5px;
+}
+.nav-item i, .nav-item span { transition: 0.3s; }
+.nav-item.active { color: var(--primary-color); }
+.nav-item-icon { font-size: 1.4rem; margin-bottom: 2px; }
+
+/* 6. MODAL WELCOME (NOVO ESTILO) */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(8px);
+    display: none; /* JS controla */
+    justify-content: center; align-items: center;
+    padding: 20px;
+    z-index: 2000;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    background: #151515;
+    border: 1px solid var(--primary-color);
+    box-shadow: 0 0 30px rgba(204, 255, 0, 0.2);
+    padding: 40px 30px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    animation: slideUp 0.4s ease;
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+/* TABLET & DESKTOP */
+@media (min-width: 768px) {
+    .glass-grid { grid-template-columns: repeat(3, 1fr); }
+    .bottom-nav { display: none; } /* Esconde no desktop */
+    .dash-container { padding-top: 50px; margin-left: auto; margin-right: auto; }
+}
